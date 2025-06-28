@@ -1,10 +1,10 @@
-package com.thee5176.record.springboot_sqrs_command;
+package com.thee5176.record.springboot_cqrs_command;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringbootSqrsCommandApplicationTests {
+class SpringbootCqrsCommandApplicationTests {
 
 	@Test
 	void contextLoads() {

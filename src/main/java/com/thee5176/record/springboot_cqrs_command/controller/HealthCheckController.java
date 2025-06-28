@@ -1,4 +1,4 @@
-package com.thee5176.record.springboot_sqrs_command.controller;
+package com.thee5176.record.springboot_cqrs_command.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

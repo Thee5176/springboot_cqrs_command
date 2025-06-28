@@ -1,13 +1,13 @@
-package com.thee5176.record.springboot_sqrs_command;
+package com.thee5176.record.springboot_cqrs_command;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootSqrsCommandApplication {
+public class SpringbootCqrsCommandApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootSqrsCommandApplication.class, args);
+		SpringApplication.run(SpringbootCqrsCommandApplication.class, args);
 	}
 
 }
