@@ -32,6 +32,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<CodeOfAccountRecord> CODE_OF_ACCOUNT_PKEY = Internal.createUniqueKey(CodeOfAccount.CODE_OF_ACCOUNT, DSL.name("code_of_account_pkey"), new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.CODE }, true);
+    public static final UniqueKey<CodeOfAccountRecord> CODE_OF_ACCOUNT_TITLE_KEY = Internal.createUniqueKey(CodeOfAccount.CODE_OF_ACCOUNT, DSL.name("code_of_account_title_key"), new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.TITLE }, true);
     public static final UniqueKey<EntriesRecord> ENTRIES_PKEY = Internal.createUniqueKey(Entries.ENTRIES, DSL.name("entries_pkey"), new TableField[] { Entries.ENTRIES.ID }, true);
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("flyway_schema_history_pk"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
     public static final UniqueKey<TransactionsRecord> TRANSACTIONS_PKEY = Internal.createUniqueKey(Transactions.TRANSACTIONS, DSL.name("transactions_pkey"), new TableField[] { Transactions.TRANSACTIONS.ID }, true);

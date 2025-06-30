@@ -11,7 +11,9 @@ import com.thee5176.record.springboot_cqrs_command.model.enums.Element;
 import com.thee5176.record.springboot_cqrs_command.model.tables.Entries.EntriesPath;
 import com.thee5176.record.springboot_cqrs_command.model.tables.records.CodeOfAccountRecord;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.jooq.Condition;
 import org.jooq.Field;
@@ -155,6 +157,11 @@ public class CodeOfAccount extends TableImpl<CodeOfAccountRecord> {
     @Override
     public UniqueKey<CodeOfAccountRecord> getPrimaryKey() {
         return Keys.CODE_OF_ACCOUNT_PKEY;
+    }
+
+    @Override
+    public List<UniqueKey<CodeOfAccountRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.CODE_OF_ACCOUNT_TITLE_KEY);
     }
 
     private transient EntriesPath _entries;

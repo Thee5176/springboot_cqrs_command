@@ -32,7 +32,7 @@ CREATE TABLE "entries" (
 
 CREATE TABLE "code_of_account" (
   "code" integer PRIMARY KEY NOT NULL,
-  "title" varchar NOT NULL,
+  "title" varchar UNIQUE NOT NULL,
   "level" int NOT NULL,
   "element" element NOT NULL,
   "type" balance_type NOT NULL
