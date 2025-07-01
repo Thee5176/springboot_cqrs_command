@@ -17,19 +17,12 @@ import com.thee5176.record.springboot_cqrs_command.model.tables.Transactions;
 public class Tables {
 
     /**
-     * 勘定科目(COA) - フレームワークの科目を活用する
-     * - 青色申告: https://biz.moneyforward.com/tax_return/basic/12079/
-     * - IFRS: https://www.ifrs-gaap.com/basic-ifrs-coa
-     * - GAAP: https://www.ifrs-gaap.com/basic-us-gaap-coa
-
+     * The table <code>public.code_of_account</code>.
      */
     public static final CodeOfAccount CODE_OF_ACCOUNT = CodeOfAccount.CODE_OF_ACCOUNT;
 
     /**
-     * エントリー：取引内の科目だけの関係で分ける
-     * 
-     * ttps://www.geeksforgeeks.org/accountancy/accounting-entry-meaning-types-advantages-examples/
-
+     * The table <code>public.entries</code>.
      */
     public static final Entries ENTRIES = Entries.ENTRIES;
 
@@ -39,10 +32,7 @@ public class Tables {
     public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
-     * 取引： 取引に少なくとも2つの科目が関係し、一つが借方 他のは貸方
-     * 
-     * ttps://www.geeksforgeeks.org/accountancy/accounting-entry-meaning-types-advantages-examples/
-
+     * The table <code>public.transactions</code>.
      */
     public static final Transactions TRANSACTIONS = Transactions.TRANSACTIONS;
 }

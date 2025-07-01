@@ -42,4 +42,5 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<EntriesRecord, CodeOfAccountRecord> ENTRIES__ENTRIES_COA_FKEY = Internal.createForeignKey(Entries.ENTRIES, DSL.name("entries_coa_fkey"), new TableField[] { Entries.ENTRIES.COA }, Keys.CODE_OF_ACCOUNT_PKEY, new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.CODE }, true);
+    public static final ForeignKey<EntriesRecord, TransactionsRecord> ENTRIES__ENTRIES_TRANSACTION_ID_FKEY = Internal.createForeignKey(Entries.ENTRIES, DSL.name("entries_transaction_id_fkey"), new TableField[] { Entries.ENTRIES.TRANSACTION_ID }, Keys.TRANSACTIONS_PKEY, new TableField[] { Transactions.TRANSACTIONS.ID }, true);
 }

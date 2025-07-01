@@ -146,7 +146,7 @@
 										com.thee5176.record.springboot_cqrs_command.model
 									</packageName>
 									<directory>
-										target/generated-sources/jooq
+										src/main/java
 									</directory>
 								</target>
 							</generator>
