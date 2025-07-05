@@ -1,6 +1,8 @@
 services:
   command_service:
     image: .
+    ports:
+    - "8080:8182"
     depends_on:
     - postgres
 
