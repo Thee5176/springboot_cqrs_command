@@ -28,6 +28,12 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<sonar.organization>thee5176</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<!-- jOOQ Codegen DB properties -->
+		<jooq.codegen.db.url>jdbc:postgresql://localhost:5999/record</jooq.codegen.db.url>
+		<jooq.codegen.db.user>springboot_admin</jooq.codegen.db.user>
+		<jooq.codegen.db.password>password</jooq.codegen.db.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -86,6 +92,23 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>my-spring-app</repository>
+					<tag>${project.version}</tag>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -101,6 +124,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<classifier>exec</classifier>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -122,9 +146,9 @@
 						<configuration>
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://localhost:5999/record</url>
-								<user>springboot_admin</user>
-								<password>password</password>
+								<url>${jooq.codegen.db.url}</url>
+								<user>${jooq.codegen.db.user}</user>
+								<password>${jooq.codegen.db.password}</password>
 							</jdbc>
 							<generator>
 								<database>
