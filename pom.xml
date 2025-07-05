@@ -30,6 +30,10 @@
 		<java.version>21</java.version>
 		<sonar.organization>thee5176</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<!-- jOOQ Codegen DB properties -->
+		<jooq.codegen.db.url>jdbc:postgresql://localhost:5999/record</jooq.codegen.db.url>
+		<jooq.codegen.db.user>springboot_admin</jooq.codegen.db.user>
+		<jooq.codegen.db.password>password</jooq.codegen.db.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -124,9 +128,9 @@
 						<configuration>
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://localhost:5999/record</url>
-								<user>springboot_admin</user>
-								<password>password</password>
+								<url>${jooq.codegen.db.url}</url>
+								<user>${jooq.codegen.db.user}</user>
+								<password>${jooq.codegen.db.password}</password>
 							</jdbc>
 							<generator>
 								<database>

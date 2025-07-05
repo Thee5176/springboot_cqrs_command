@@ -1,4 +1,9 @@
 services:
+  command_service:
+    image: .
+    depends_on:
+    - postgres
+
   postgres:
     image: "postgres:latest"
     container_name: postgres-command-record
