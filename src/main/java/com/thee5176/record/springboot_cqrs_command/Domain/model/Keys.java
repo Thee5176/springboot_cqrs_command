@@ -4,12 +4,6 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model;
 
 
-import org.jooq.ForeignKey;
-import org.jooq.TableField;
-import org.jooq.UniqueKey;
-import org.jooq.impl.DSL;
-import org.jooq.impl.Internal;
-
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.CodeOfAccount;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
@@ -18,6 +12,12 @@ import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.C
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.EntriesRecord;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.FlywaySchemaHistoryRecord;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.TransactionsRecord;
+
+import org.jooq.ForeignKey;
+import org.jooq.TableField;
+import org.jooq.UniqueKey;
+import org.jooq.impl.DSL;
+import org.jooq.impl.Internal;
 
 
 /**

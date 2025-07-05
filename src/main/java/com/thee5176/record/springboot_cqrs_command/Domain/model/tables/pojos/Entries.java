@@ -4,11 +4,11 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos;
 
 
+import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.BalanceType;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
-import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.BalanceType;
 
 
 /**

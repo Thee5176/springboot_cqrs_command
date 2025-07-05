@@ -4,12 +4,12 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model;
 
 
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
+
 import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
-
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
 
 
 /**
