@@ -32,11 +32,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Start services
-        run: docker-compose up -d postgres
+        run: docker compose up -d postgres
 
       - name: Wait for PostgreSQL
         run: |
-          until docker-compose exec -T postgres pg_isready -U springboot_admin -d record; do
+          until docker compose exec -T postgres pg_isready -U springboot_admin -d record; do
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
