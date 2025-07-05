@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.UUID;
 
 import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.thee5176.record.springboot_cqrs_command.Domain.model.Tables;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
+import lombok.RequiredArgsConstructor;
 
 @Repository
+@RequiredArgsConstructor
 public class EntryRepository {
     
-    @Autowired
-    DSLContext dslContext;
+    private final DSLContext dslContext;
 
     public void createEntry(Entries entries) {
         dslContext.insertInto(Tables.ENTRIES, Tables.ENTRIES.ID, Tables.ENTRIES.TRANSACTION_ID, Tables.ENTRIES.COA, Tables.ENTRIES.AMOUNT, Tables.ENTRIES.TYPE, Tables.ENTRIES.CREATED_AT, Tables.ENTRIES.UPDATED_AT)
