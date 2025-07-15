@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/transactions")
 @RequiredArgsConstructor
 public class TransactionController {
+    //Repository確認用Controller
     private final TransactionRepository transactionRepository;
 
     @PostMapping

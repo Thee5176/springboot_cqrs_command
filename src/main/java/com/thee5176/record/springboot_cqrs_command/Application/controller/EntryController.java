@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/entries")
 @AllArgsConstructor
 public class EntryController {
+    //Repository確認用Controller
     private final EntryRepository entryRepository;
 
     @GetMapping
