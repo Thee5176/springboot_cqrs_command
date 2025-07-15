@@ -1,11 +1,4 @@
 services:
-  command_service:
-    image: .
-    ports:
-    - "8182:8080"
-    depends_on:
-    - postgres
-
   postgres:
     image: "postgres:latest"
     container_name: postgres-command-record

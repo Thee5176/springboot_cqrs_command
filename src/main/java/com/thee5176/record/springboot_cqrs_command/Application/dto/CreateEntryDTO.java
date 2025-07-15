@@ -1,14 +1,15 @@
 package com.thee5176.record.springboot_cqrs_command.Application.dto;
 
-import java.util.UUID;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.BalanceType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record CreateEntryDTO(
-    UUID id,
-    UUID transactionId,
-    Integer coa,
-    Double amount,
-    BalanceType type
-) {
-    
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateEntryDTO{
+    Integer coa;
+    Double amount;
+    BalanceType type;
 }
