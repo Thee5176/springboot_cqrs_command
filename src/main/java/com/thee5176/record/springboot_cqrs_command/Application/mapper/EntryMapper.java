@@ -1,25 +1,29 @@
 package com.thee5176.record.springboot_cqrs_command.Application.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateEntryDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateTransactionDTO;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
 
 @Service
 public class EntryMapper {
-    final ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public EntryMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
-    public Transactions map(CreateTransactionDTO createTransactionDTO) {
-        return modelMapper.map(createTransactionDTO, Transactions.class);
-    }
-
-    public Entries map(CreateEntryDTO createEntryDTO) {
-        return modelMapper.map(createEntryDTO, Entries.class);
+    public List<Entries> map(CreateRecordDTO createRecordDTO) {
+        
+        return createRecordDTO.getEntries().stream()
+            .map(entryDto -> this.modelMapper.map(entryDto, Entries.class))
+            .map(entry -> {
+                entry.setTransactionId(createRecordDTO.getId());
+                entry.setUpdatedAt(createRecordDTO.getTimestamp());
+                return entry;
+            })
+            .collect(Collectors.toList());
     }
 }
