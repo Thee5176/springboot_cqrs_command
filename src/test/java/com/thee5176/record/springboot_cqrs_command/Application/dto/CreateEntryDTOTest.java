@@ -21,9 +21,9 @@ public class CreateEntryDTOTest {
         
         //Assert
         assertNotNull(debitEntry);
-        assertEquals(coa, debitEntry.coa());
-        assertEquals(amount, debitEntry.amount());
-        assertEquals(type, debitEntry.type());
+        assertEquals(coa, debitEntry.getCoa());
+        assertEquals(amount, debitEntry.getAmount());
+        assertEquals(type, debitEntry.getType());
     }
 
     @Test
@@ -39,9 +39,9 @@ public class CreateEntryDTOTest {
 
         //Assert
         assertNotNull(creditEntry);
-        assertEquals(coa, creditEntry.coa());
-        assertEquals(amount, creditEntry.amount());
-        assertEquals(type, creditEntry.type());
+        assertEquals(coa, creditEntry.getCoa());
+        assertEquals(amount, creditEntry.getAmount());
+        assertEquals(type, creditEntry.getType());
 }
 
     public static CreateEntryDTO createExampleEntry() {

@@ -20,22 +20,22 @@ public class CreateRecordDTOTest {
 
         CreateRecordDTO dto = new CreateRecordDTO(id, date, description, entries, timestamp);
 
-        assertEquals(id, dto.id());
-        assertEquals(date, dto.date());
-        assertEquals(description, dto.description());
-        assertEquals(entries, dto.entries());
-        assertEquals(timestamp, dto.timestamp());
+        assertEquals(id, dto.getId());
+        assertEquals(date, dto.getDate());
+        assertEquals(description, dto.getDescription());
+        assertEquals(entries, dto.getEntries());
+        assertEquals(timestamp, dto.getTimestamp());
     }
 
     @Test
     public void testCreateRecordDTO_NullFields() {
         CreateRecordDTO dto = new CreateRecordDTO(null, null, null, null, null);
 
-        assertNull(dto.id());
-        assertNull(dto.date());
-        assertNull(dto.description());
-        assertNull(dto.entries());
-        assertNull(dto.timestamp());
+        assertNull(dto.getId());
+        assertNull(dto.getDate());
+        assertNull(dto.getDescription());
+        assertNull(dto.getEntries());
+        assertNull(dto.getTimestamp());
     }
 
     public static CreateRecordDTO createSampleRecordDTO() {
