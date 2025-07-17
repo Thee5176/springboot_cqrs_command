@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 public class CreateRecordDTOTest {
 
     @Test
-    public void testCreateRecordDTO_AllFields() {
+    void testCreateRecordDTO_AllFields() {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
-        final List<CreateEntryDTO> entries = CreateEntryDTOTest.createSampleEntriesDTO();
+        final List<CreateEntryDTO> entries = CreateEntryDTOTest.createPairSampleCreateEntryDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
         CreateRecordDTO dto = new CreateRecordDTO(id, date, description, entries, timestamp);
@@ -28,7 +28,7 @@ public class CreateRecordDTOTest {
     }
 
     @Test
-    public void testCreateRecordDTO_NullFields() {
+    void testCreateRecordDTO_NullFields() {
         CreateRecordDTO dto = new CreateRecordDTO(null, null, null, null, null);
 
         assertNull(dto.getId());
@@ -38,11 +38,11 @@ public class CreateRecordDTOTest {
         assertNull(dto.getTimestamp());
     }
 
-    public static CreateRecordDTO createSampleRecordDTO() {
+    public static CreateRecordDTO createSampleCreateRecordDTO() {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
-        final List<CreateEntryDTO> entries = CreateEntryDTOTest.createSampleEntriesDTO();
+        final List<CreateEntryDTO> entries = CreateEntryDTOTest.createPairSampleCreateEntryDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
         final CreateRecordDTO createRecordDTO = new CreateRecordDTO(id, date, description, entries, timestamp);

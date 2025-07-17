@@ -9,7 +9,7 @@ import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.BalanceTyp
 public class CreateEntryDTOTest {
 
     @Test
-    public void canCreateDebitEntry() {
+    void canCreateDebitEntry() {
         // Test data for a debit entry (e.g., for an asset or expense account)
         // Arrange
         final Integer coa = 1101; // Example Chart of Accounts code for "Cash"
@@ -27,7 +27,7 @@ public class CreateEntryDTOTest {
     }
 
     @Test
-    public void canCreateCreditEntry() {
+    void canCreateCreditEntry() {
         // Test data for a credit entry (e.g., for a liability, equity, or revenue account)
         // Arrange
         final Integer coa = 4101; // Example Chart of Accounts code for "Sales Revenue"
@@ -44,11 +44,11 @@ public class CreateEntryDTOTest {
         assertEquals(type, creditEntry.getType());
 }
 
-    public static CreateEntryDTO createExampleEntry() {
+    public static CreateEntryDTO createSampleCreateEntryDTO() {
         return new CreateEntryDTO(1101, 100.0, BalanceType.Debit);
     }
 
-    public static List<CreateEntryDTO> createSampleEntriesDTO() {
+    public static List<CreateEntryDTO> createPairSampleCreateEntryDTO() {
         final CreateEntryDTO debitEntry = new CreateEntryDTO(1101, 100.0, BalanceType.Debit);
         final CreateEntryDTO creditEntry = new CreateEntryDTO(4101, 100.0, BalanceType.Credit);
         return List.of(debitEntry, creditEntry);

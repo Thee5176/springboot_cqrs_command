@@ -17,8 +17,8 @@ public class EntryRepository {
     private final DSLContext dslContext;
 
     public void createEntry(Entries entries) {
-        dslContext.insertInto(Tables.ENTRIES, Tables.ENTRIES.TRANSACTION_ID, Tables.ENTRIES.COA, Tables.ENTRIES.AMOUNT, Tables.ENTRIES.TYPE, Tables.ENTRIES.CREATED_AT, Tables.ENTRIES.UPDATED_AT)
-            .values(entries.getTransactionId(), entries.getCoa(), entries.getAmount(), entries.getType(), entries.getCreatedAt(), entries.getUpdatedAt())
+        dslContext.insertInto(Tables.ENTRIES, Tables.ENTRIES.ID, Tables.ENTRIES.TRANSACTION_ID, Tables.ENTRIES.COA, Tables.ENTRIES.AMOUNT, Tables.ENTRIES.TYPE, Tables.ENTRIES.CREATED_AT, Tables.ENTRIES.UPDATED_AT)
+            .values(entries.getId(), entries.getTransactionId(), entries.getCoa(), entries.getAmount(), entries.getType(), entries.getCreatedAt(), entries.getUpdatedAt())
             .execute();
     }
 

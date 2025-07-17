@@ -14,7 +14,10 @@ public class TransactionMapper {
     }
 
     public Transactions map(CreateRecordDTO createRecordDTO) {
-        Transactions transaction = this.modelMapper.map(createRecordDTO, Transactions.class);
+        Transactions transaction = this.modelMapper.map(createRecordDTO, Transactions.class);   
+        transaction.setCreatedAt(createRecordDTO.getTimestamp());
+        transaction.setUpdatedAt(createRecordDTO.getTimestamp());
+        // Note: The ID is set in the service layer.
         return transaction;
     }
 }

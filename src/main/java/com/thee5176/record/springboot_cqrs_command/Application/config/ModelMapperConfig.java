@@ -4,10 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateEntryDTO;         //TODO : LedgerItemDTO
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;        //TODO : CreateLedgerDTO
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;      //TODO : LedgerItem
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions; //TODO : Ledger
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateEntryDTO;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
 
 @Configuration
 public class ModelMapperConfig {
@@ -27,15 +27,18 @@ public class ModelMapperConfig {
             .addMappings(mapper -> mapper.skip(Entries::setTransactionId))
             .addMappings(mapper -> mapper.skip(Entries::setCreatedAt))
             .addMappings(mapper -> mapper.skip(Entries::setUpdatedAt));
+            // Note1: The ID and TransactionId are set in the service layer.
+            // Note2: The CreatedAt and UpdatedAt are set in the custom mapper layer,
 
         // CreateRecordDTO map to Transactions
         modelMapper.createTypeMap(CreateRecordDTO.class, Transactions.class)
             .addMapping(CreateRecordDTO::getDate, Transactions::setDate)
             .addMapping(CreateRecordDTO::getDescription, Transactions::setDescription)
-            .addMapping(CreateRecordDTO::getTimestamp,Transactions::setCreatedAt)
-            .addMapping(CreateRecordDTO::getTimestamp,Transactions::setUpdatedAt)
+            .addMappings(mapper -> mapper.skip(Transactions::setCreatedAt))
+            .addMappings(mapper -> mapper.skip(Transactions::setUpdatedAt))
             .addMappings(mapper -> mapper.skip(Transactions::setId));
-
+            // Note1: The CreatedAt and UpdatedAt is set in the custom mapper layer.
+            // Note2: The ID is set in the service layer.
         modelMapper.validate();
         return modelMapper;
     }

@@ -25,7 +25,7 @@ class ModelMapperConfigTest {
 
     @Test
     void testMappingCreateEntryDTOToEntriesMapping() {
-        final CreateEntryDTO dto = CreateEntryDTOTest.createExampleEntry();
+        final CreateEntryDTO dto = CreateEntryDTOTest.createSampleCreateEntryDTO();
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
         Entries entries = modelMapper.map(dto, Entries.class);
@@ -37,7 +37,7 @@ class ModelMapperConfigTest {
 
     @Test
     void testMappingCreateRecordDTOToTransactionsWithoutID() {
-        CreateRecordDTO dto = CreateRecordDTOTest.createSampleRecordDTO();
+        CreateRecordDTO dto = CreateRecordDTOTest.createSampleCreateRecordDTO();
         dto.setId(null);
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 

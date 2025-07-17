@@ -16,8 +16,8 @@ public class TransactionRepository {
 
     //Create - https://www.jooq.org/doc/latest/manual/sql-building/sql-statements/insert-statement/insert-values/#insert-values-with-a-single-row
     public void createTransaction(Transactions transactions) {
-        dslContext.insertInto(Tables.TRANSACTIONS, Tables.TRANSACTIONS.DATE, Tables.TRANSACTIONS.DESCRIPTION,Tables.TRANSACTIONS.CREATED_AT, Tables.TRANSACTIONS.UPDATED_AT)
-            .values(transactions.getDate(), transactions.getDescription(), transactions.getCreatedAt(), transactions.getUpdatedAt())
+        dslContext.insertInto(Tables.TRANSACTIONS, Tables.TRANSACTIONS.ID, Tables.TRANSACTIONS.DATE, Tables.TRANSACTIONS.DESCRIPTION,Tables.TRANSACTIONS.CREATED_AT, Tables.TRANSACTIONS.UPDATED_AT)
+            .values(transactions.getId(), transactions.getDate(), transactions.getDescription(), transactions.getCreatedAt(), transactions.getUpdatedAt())
                 .execute();
     }
 
