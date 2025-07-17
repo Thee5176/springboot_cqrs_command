@@ -5,9 +5,9 @@ package com.thee5176.record.springboot_cqrs_command.Domain.model;
 
 
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.CodeOfAccount;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Transactions;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.LedgerItems;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Ledgers;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,19 +36,19 @@ public class Public extends SchemaImpl {
     public final CodeOfAccount CODE_OF_ACCOUNT = CodeOfAccount.CODE_OF_ACCOUNT;
 
     /**
-     * The table <code>public.entries</code>.
-     */
-    public final Entries ENTRIES = Entries.ENTRIES;
-
-    /**
      * The table <code>public.flyway_schema_history</code>.
      */
     public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
-     * The table <code>public.transactions</code>.
+     * The table <code>public.ledger_items</code>.
      */
-    public final Transactions TRANSACTIONS = Transactions.TRANSACTIONS;
+    public final LedgerItems LEDGER_ITEMS = LedgerItems.LEDGER_ITEMS;
+
+    /**
+     * The table <code>public.ledgers</code>.
+     */
+    public final Ledgers LEDGERS = Ledgers.LEDGERS;
 
     /**
      * No further instances allowed
@@ -67,9 +67,9 @@ public class Public extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             CodeOfAccount.CODE_OF_ACCOUNT,
-            Entries.ENTRIES,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
-            Transactions.TRANSACTIONS
+            LedgerItems.LEDGER_ITEMS,
+            Ledgers.LEDGERS
         );
     }
 }

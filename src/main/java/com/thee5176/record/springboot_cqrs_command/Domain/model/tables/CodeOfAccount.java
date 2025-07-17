@@ -8,7 +8,7 @@ import com.thee5176.record.springboot_cqrs_command.Domain.model.Keys;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.Public;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.BalanceType;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.Element;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries.EntriesPath;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.LedgerItems.LedgerItemsPath;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.CodeOfAccountRecord;
 
 import java.util.Arrays;
@@ -160,17 +160,17 @@ public class CodeOfAccount extends TableImpl<CodeOfAccountRecord> {
         return Arrays.asList(Keys.CODE_OF_ACCOUNT_TITLE_KEY);
     }
 
-    private transient EntriesPath _entries;
+    private transient LedgerItemsPath _ledgerItems;
 
     /**
-     * Get the implicit to-many join path to the <code>public.entries</code>
-     * table
+     * Get the implicit to-many join path to the
+     * <code>public.ledger_items</code> table
      */
-    public EntriesPath entries() {
-        if (_entries == null)
-            _entries = new EntriesPath(this, null, Keys.ENTRIES__ENTRIES_COA_FKEY.getInverseKey());
+    public LedgerItemsPath ledgerItems() {
+        if (_ledgerItems == null)
+            _ledgerItems = new LedgerItemsPath(this, null, Keys.LEDGER_ITEMS__ENTRIES_COA_FKEY.getInverseKey());
 
-        return _entries;
+        return _ledgerItems;
     }
 
     @Override

@@ -5,13 +5,13 @@ package com.thee5176.record.springboot_cqrs_command.Domain.model;
 
 
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.CodeOfAccount;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Transactions;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.LedgerItems;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Ledgers;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.CodeOfAccountRecord;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.EntriesRecord;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.FlywaySchemaHistoryRecord;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.TransactionsRecord;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.LedgerItemsRecord;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.LedgersRecord;
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -33,14 +33,14 @@ public class Keys {
 
     public static final UniqueKey<CodeOfAccountRecord> CODE_OF_ACCOUNT_PKEY = Internal.createUniqueKey(CodeOfAccount.CODE_OF_ACCOUNT, DSL.name("code_of_account_pkey"), new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.CODE }, true);
     public static final UniqueKey<CodeOfAccountRecord> CODE_OF_ACCOUNT_TITLE_KEY = Internal.createUniqueKey(CodeOfAccount.CODE_OF_ACCOUNT, DSL.name("code_of_account_title_key"), new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.TITLE }, true);
-    public static final UniqueKey<EntriesRecord> ENTRIES_PKEY = Internal.createUniqueKey(Entries.ENTRIES, DSL.name("entries_pkey"), new TableField[] { Entries.ENTRIES.ID }, true);
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("flyway_schema_history_pk"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
-    public static final UniqueKey<TransactionsRecord> TRANSACTIONS_PKEY = Internal.createUniqueKey(Transactions.TRANSACTIONS, DSL.name("transactions_pkey"), new TableField[] { Transactions.TRANSACTIONS.ID }, true);
+    public static final UniqueKey<LedgerItemsRecord> ENTRIES_PKEY = Internal.createUniqueKey(LedgerItems.LEDGER_ITEMS, DSL.name("entries_pkey"), new TableField[] { LedgerItems.LEDGER_ITEMS.ID }, true);
+    public static final UniqueKey<LedgersRecord> TRANSACTIONS_PKEY = Internal.createUniqueKey(Ledgers.LEDGERS, DSL.name("transactions_pkey"), new TableField[] { Ledgers.LEDGERS.ID }, true);
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<EntriesRecord, CodeOfAccountRecord> ENTRIES__ENTRIES_COA_FKEY = Internal.createForeignKey(Entries.ENTRIES, DSL.name("entries_coa_fkey"), new TableField[] { Entries.ENTRIES.COA }, Keys.CODE_OF_ACCOUNT_PKEY, new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.CODE }, true);
-    public static final ForeignKey<EntriesRecord, TransactionsRecord> ENTRIES__ENTRIES_TRANSACTION_ID_FKEY = Internal.createForeignKey(Entries.ENTRIES, DSL.name("entries_transaction_id_fkey"), new TableField[] { Entries.ENTRIES.TRANSACTION_ID }, Keys.TRANSACTIONS_PKEY, new TableField[] { Transactions.TRANSACTIONS.ID }, true);
+    public static final ForeignKey<LedgerItemsRecord, CodeOfAccountRecord> LEDGER_ITEMS__ENTRIES_COA_FKEY = Internal.createForeignKey(LedgerItems.LEDGER_ITEMS, DSL.name("entries_coa_fkey"), new TableField[] { LedgerItems.LEDGER_ITEMS.COA }, Keys.CODE_OF_ACCOUNT_PKEY, new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.CODE }, true);
+    public static final ForeignKey<LedgerItemsRecord, LedgersRecord> LEDGER_ITEMS__ENTRIES_TRANSACTION_ID_FKEY = Internal.createForeignKey(LedgerItems.LEDGER_ITEMS, DSL.name("entries_transaction_id_fkey"), new TableField[] { LedgerItems.LEDGER_ITEMS.TRANSACTION_ID }, Keys.TRANSACTIONS_PKEY, new TableField[] { Ledgers.LEDGERS.ID }, true);
 }

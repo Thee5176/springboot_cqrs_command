@@ -7,8 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
 import com.thee5176.record.springboot_cqrs_command.Application.mapper.EntryMapper;
 import com.thee5176.record.springboot_cqrs_command.Application.mapper.TransactionMapper;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
+// import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.LedgerItems;
+// import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Ledgers;
 import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.EntryRepository;
 import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
@@ -31,13 +33,13 @@ public class RecordCommandService {
         final UUID transaction_uuid = UUID.randomUUID();
 
         // 取引作成stream
-        Transactions transaction = transactionMapper.map(createRecordDTO).setId(transaction_uuid);
+        Ledgers transaction = transactionMapper.map(createRecordDTO).setId(transaction_uuid);
         
         transactionRepository.createTransaction(transaction);
         log.info("Transaction created", transaction);
         
         // 取引行別作成stream
-        List<Entries> entriesList = entryMapper.map(createRecordDTO);
+        List<LedgerItems> entriesList = entryMapper.map(createRecordDTO);
         log.info("List of entry to be created: {}", entriesList);
         entriesList.forEach(entry -> {
             entry.setId(UUID.randomUUID());

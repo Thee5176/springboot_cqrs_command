@@ -5,9 +5,9 @@ package com.thee5176.record.springboot_cqrs_command.Domain.model;
 
 
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.CodeOfAccount;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Transactions;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.LedgerItems;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Ledgers;
 
 
 /**
@@ -22,17 +22,17 @@ public class Tables {
     public static final CodeOfAccount CODE_OF_ACCOUNT = CodeOfAccount.CODE_OF_ACCOUNT;
 
     /**
-     * The table <code>public.entries</code>.
-     */
-    public static final Entries ENTRIES = Entries.ENTRIES;
-
-    /**
      * The table <code>public.flyway_schema_history</code>.
      */
     public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
-     * The table <code>public.transactions</code>.
+     * The table <code>public.ledger_items</code>.
      */
-    public static final Transactions TRANSACTIONS = Transactions.TRANSACTIONS;
+    public static final LedgerItems LEDGER_ITEMS = LedgerItems.LEDGER_ITEMS;
+
+    /**
+     * The table <code>public.ledgers</code>.
+     */
+    public static final Ledgers LEDGERS = Ledgers.LEDGERS;
 }
