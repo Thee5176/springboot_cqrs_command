@@ -15,7 +15,6 @@ public class TransactionMapper {
 
     public Transactions map(CreateRecordDTO createRecordDTO) {
         Transactions transaction = this.modelMapper.map(createRecordDTO, Transactions.class);
-        transaction.setUpdatedAt(createRecordDTO.getTimestamp());
         return transaction;
     }
 }

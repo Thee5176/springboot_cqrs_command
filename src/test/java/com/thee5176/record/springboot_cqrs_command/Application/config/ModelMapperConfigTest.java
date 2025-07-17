@@ -36,15 +36,17 @@ class ModelMapperConfigTest {
     }
 
     @Test
-    void testMappingCreateRecordDTOToTransactionsMapping() {
-        final CreateRecordDTO dto = CreateRecordDTOTest.createSampleRecordDTO();
+    void testMappingCreateRecordDTOToTransactionsWithoutID() {
+        CreateRecordDTO dto = CreateRecordDTOTest.createSampleRecordDTO();
+        dto.setId(null);
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
-
 
         Transactions transactions = modelMapper.map(dto, Transactions.class);
 
-        assertEquals(dto.getId(), transactions.getId());
+        assertEquals(null, transactions.getId());
         assertEquals(dto.getDate(), transactions.getDate());
         assertEquals(dto.getDescription(), transactions.getDescription());
+        assertEquals(dto.getTimestamp(), transactions.getUpdatedAt());
+        assertEquals(dto.getTimestamp(), transactions.getCreatedAt());
     }
 }

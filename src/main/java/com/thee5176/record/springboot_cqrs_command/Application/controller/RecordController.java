@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
-import com.thee5176.record.springboot_cqrs_command.Domain.service.RecordReplicatorService;
+import com.thee5176.record.springboot_cqrs_command.Domain.service.RecordCommandService;
 import lombok.AllArgsConstructor;
 
 
@@ -14,12 +14,14 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/record")
 @AllArgsConstructor
 public class RecordController {
-    private final RecordReplicatorService recordReplicatorService;
+    private final RecordCommandService recordCommandService;
 
     @PostMapping
     public ResponseEntity<String> newBookrecord(@RequestBody CreateRecordDTO createRecordDTO) {
-        recordReplicatorService.replicateRecord(createRecordDTO);
+        recordCommandService.createRecord(createRecordDTO);
 
         return ResponseEntity.ok("Succesfully create new bookrecord");
     }
+
+    // TODO : UPDATE and DELETE endpoints
 }

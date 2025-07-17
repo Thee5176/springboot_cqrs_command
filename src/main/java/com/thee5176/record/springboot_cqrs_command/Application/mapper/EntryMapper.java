@@ -20,7 +20,7 @@ public class EntryMapper {
         return createRecordDTO.getEntries().stream()
             .map(entryDto -> this.modelMapper.map(entryDto, Entries.class))
             .map(entry -> {
-                entry.setTransactionId(createRecordDTO.getId());
+                entry.setCreatedAt(createRecordDTO.getTimestamp());
                 entry.setUpdatedAt(createRecordDTO.getTimestamp());
                 return entry;
             })

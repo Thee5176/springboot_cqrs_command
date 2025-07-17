@@ -63,7 +63,7 @@ public class Entries extends TableImpl<EntriesRecord> {
     /**
      * The column <code>public.entries.id</code>.
      */
-    public final TableField<EntriesRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<EntriesRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("uuid_generate_v4()"), SQLDataType.UUID)), this, "");
 
     /**
      * The column <code>public.entries.transaction_id</code>.
