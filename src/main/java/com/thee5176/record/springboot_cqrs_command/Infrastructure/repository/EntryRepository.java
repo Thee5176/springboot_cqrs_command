@@ -41,7 +41,7 @@ public class EntryRepository {
     }
 
     public List<Entries> getEntry() {
-        return dslContext.selectFrom(Tables.TRANSACTIONS)
+        return dslContext.selectFrom(Tables.ENTRIES)
                 .fetchInto(Entries.class);
     }
 }
