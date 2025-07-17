@@ -4,10 +4,10 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos;
 
 
-import java.io.Serializable;
-
 import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.BalanceType;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.enums.Element;
+
+import java.io.Serializable;
 
 
 /**

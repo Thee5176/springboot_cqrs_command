@@ -4,12 +4,12 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records;
 
 
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
+
 import java.time.LocalDateTime;
 
 import org.jooq.Record1;
 import org.jooq.impl.UpdatableRecordImpl;
-
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
 
 
 /**

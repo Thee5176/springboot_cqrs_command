@@ -2,19 +2,17 @@ package com.thee5176.record.springboot_cqrs_command.Infrastructure.repository;
 
 import java.util.List;
 import java.util.UUID;
-
 import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.thee5176.record.springboot_cqrs_command.Domain.model.Tables;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
+import lombok.AllArgsConstructor;
 
 @Repository
+@AllArgsConstructor
 public class TransactionRepository {
     
-    @Autowired
-    private DSLContext dslContext;
+    private final DSLContext dslContext;
 
     //Create - https://www.jooq.org/doc/latest/manual/sql-building/sql-statements/insert-statement/insert-values/#insert-values-with-a-single-row
     public void createTransaction(Transactions transactions) {

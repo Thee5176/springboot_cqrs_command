@@ -4,6 +4,11 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model.tables;
 
 
+import com.thee5176.record.springboot_cqrs_command.Domain.model.Indexes;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.Keys;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.Public;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.FlywaySchemaHistoryRecord;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,11 +31,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-
-import com.thee5176.record.springboot_cqrs_command.Domain.model.Indexes;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.Keys;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.Public;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.records.FlywaySchemaHistoryRecord;
 
 
 /**

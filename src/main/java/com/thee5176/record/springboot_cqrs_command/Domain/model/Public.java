@@ -4,17 +4,17 @@
 package com.thee5176.record.springboot_cqrs_command.Domain.model;
 
 
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.CodeOfAccount;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Transactions;
+
 import java.util.Arrays;
 import java.util.List;
 
 import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
-
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.CodeOfAccount;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Entries;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.FlywaySchemaHistory;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Transactions;
 
 
 /**
