@@ -31,8 +31,13 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Start services
-        run: docker compose up -d postgres
+      - name: Start services and make migration
+        run: 
+          docker compose up -d postgres
+      - name: Migrate and Regen JOOQ Pojos
+        run: |
+          mvn flyway:migrate
+          mvn clean install -DskipTests
 
       - name: Wait for PostgreSQL
         run: |
