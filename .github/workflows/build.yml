@@ -37,8 +37,6 @@ jobs:
       - name: Migrate and Regen JOOQ Pojos
         run: |
           mvn flyway:migrate
-          mvn clean install -DskipTests
-
       - name: Wait for PostgreSQL
         run: |
           until docker compose exec -T postgres pg_isready -U springboot_admin -d record; do
