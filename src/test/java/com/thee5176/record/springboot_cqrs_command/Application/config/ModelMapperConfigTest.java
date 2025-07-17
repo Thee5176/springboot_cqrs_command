@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateEntryDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateEntryDTOTest;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerItemsDTO;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerItemsDTOTest;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTOTest;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItems;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Ledgers;
 
 @SpringBootTest
 class ModelMapperConfigTest {
@@ -24,33 +24,33 @@ class ModelMapperConfigTest {
     }
 
     @Test
-    void testMappingCreateEntryDTOToEntriesMapping() {
-        final CreateEntryDTO dto = CreateEntryDTOTest.createSampleCreateEntryDTO();
+    void testMappingCreateLedgerItemsDTOToLedgerItemsMapping() {
+        final CreateLedgerItemsDTO dto = CreateLedgerItemsDTOTest.createSampleCreateLedgerItemsDTO();
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
-        Entries entries = modelMapper.map(dto, Entries.class);
+        LedgerItems ledgerItems = modelMapper.map(dto, LedgerItems.class);
 
-        assertEquals(dto.getCoa(), entries.getCoa());
-        assertEquals(dto.getAmount(), entries.getAmount());
-        assertEquals(dto.getType(), entries.getType());
-        assertEquals(null, entries.getId()); 
-        assertEquals(null, entries.getTransactionId()); 
-        assertEquals(null, entries.getCreatedAt()); 
-        assertEquals(null, entries.getUpdatedAt()); 
+        assertEquals(dto.getCoa(), ledgerItems.getCoa());
+        assertEquals(dto.getAmount(), ledgerItems.getAmount());
+        assertEquals(dto.getType(), ledgerItems.getType());
+        assertEquals(null, ledgerItems.getId()); 
+        assertEquals(null, ledgerItems.getLedgerId()); 
+        assertEquals(null, ledgerItems.getCreatedAt()); 
+        assertEquals(null, ledgerItems.getUpdatedAt()); 
     }
 
     @Test
-    void testMappingCreateRecordDTOToTransactionsWithoutID() {
+    void testMappingCreateRecordDTOToLedgersWithoutID() {
         CreateRecordDTO dto = CreateRecordDTOTest.createSampleCreateRecordDTO();
         dto.setId(null);
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
-        Transactions transactions = modelMapper.map(dto, Transactions.class);
+        Ledgers ledgers = modelMapper.map(dto, Ledgers.class);
 
-        assertEquals(dto.getDate(), transactions.getDate());
-        assertEquals(dto.getDescription(), transactions.getDescription());
-        assertEquals(null, transactions.getId());
-        assertEquals(null, transactions.getCreatedAt());
-        assertEquals(null, transactions.getUpdatedAt());
+        assertEquals(dto.getDate(), ledgers.getDate());
+        assertEquals(dto.getDescription(), ledgers.getDescription());
+        assertEquals(null, ledgers.getId());
+        assertEquals(null, ledgers.getCreatedAt());
+        assertEquals(null, ledgers.getUpdatedAt());
     }
 }

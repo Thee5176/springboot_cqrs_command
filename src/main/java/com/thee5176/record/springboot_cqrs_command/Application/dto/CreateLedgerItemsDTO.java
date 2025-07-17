@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateEntryDTO{
+public class CreateLedgerItemsDTO{
     Integer coa;
     Double amount;
     BalanceType type;

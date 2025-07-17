@@ -20,7 +20,7 @@ public class LedgerItems implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
-    private UUID transactionId;
+    private UUID ledgerId;
     private Integer coa;
     private Double amount;
     private BalanceType type;
@@ -31,7 +31,7 @@ public class LedgerItems implements Serializable {
 
     public LedgerItems(LedgerItems value) {
         this.id = value.id;
-        this.transactionId = value.transactionId;
+        this.ledgerId = value.ledgerId;
         this.coa = value.coa;
         this.amount = value.amount;
         this.type = value.type;
@@ -41,7 +41,7 @@ public class LedgerItems implements Serializable {
 
     public LedgerItems(
         UUID id,
-        UUID transactionId,
+        UUID ledgerId,
         Integer coa,
         Double amount,
         BalanceType type,
@@ -49,7 +49,7 @@ public class LedgerItems implements Serializable {
         LocalDateTime updatedAt
     ) {
         this.id = id;
-        this.transactionId = transactionId;
+        this.ledgerId = ledgerId;
         this.coa = coa;
         this.amount = amount;
         this.type = type;
@@ -73,17 +73,17 @@ public class LedgerItems implements Serializable {
     }
 
     /**
-     * Getter for <code>public.ledger_items.transaction_id</code>.
+     * Getter for <code>public.ledger_items.ledger_id</code>.
      */
-    public UUID getTransactionId() {
-        return this.transactionId;
+    public UUID getLedgerId() {
+        return this.ledgerId;
     }
 
     /**
-     * Setter for <code>public.ledger_items.transaction_id</code>.
+     * Setter for <code>public.ledger_items.ledger_id</code>.
      */
-    public LedgerItems setTransactionId(UUID transactionId) {
-        this.transactionId = transactionId;
+    public LedgerItems setLedgerId(UUID ledgerId) {
+        this.ledgerId = ledgerId;
         return this;
     }
 
@@ -177,11 +177,11 @@ public class LedgerItems implements Serializable {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.transactionId == null) {
-            if (other.transactionId != null)
+        if (this.ledgerId == null) {
+            if (other.ledgerId != null)
                 return false;
         }
-        else if (!this.transactionId.equals(other.transactionId))
+        else if (!this.ledgerId.equals(other.ledgerId))
             return false;
         if (this.coa == null) {
             if (other.coa != null)
@@ -221,7 +221,7 @@ public class LedgerItems implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.transactionId == null) ? 0 : this.transactionId.hashCode());
+        result = prime * result + ((this.ledgerId == null) ? 0 : this.ledgerId.hashCode());
         result = prime * result + ((this.coa == null) ? 0 : this.coa.hashCode());
         result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
         result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
@@ -235,7 +235,7 @@ public class LedgerItems implements Serializable {
         StringBuilder sb = new StringBuilder("LedgerItems (");
 
         sb.append(id);
-        sb.append(", ").append(transactionId);
+        sb.append(", ").append(ledgerId);
         sb.append(", ").append(coa);
         sb.append(", ").append(amount);
         sb.append(", ").append(type);

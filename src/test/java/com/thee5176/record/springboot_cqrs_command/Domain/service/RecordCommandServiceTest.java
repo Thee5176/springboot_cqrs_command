@@ -10,56 +10,56 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTOTest;
-import com.thee5176.record.springboot_cqrs_command.Application.mapper.EntryMapper;
-import com.thee5176.record.springboot_cqrs_command.Application.mapper.TransactionMapper;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.EntriesTest;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.TransactionsTest;
-import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.EntryRepository;
-import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.TransactionRepository;
+import com.thee5176.record.springboot_cqrs_command.Application.mapper.LedgerItemsMapper;
+import com.thee5176.record.springboot_cqrs_command.Application.mapper.LedgerMapper;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItems;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItemsTest;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Ledgers;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgersTest;
+import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.LedgerItemsRepository;
+import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.LedgerRepository;
 
 class RecordCommandServiceTest {
 
-    private TransactionRepository transactionRepository;
-    private EntryRepository entryRepository;
-    private TransactionMapper transactionMapper;
-    private EntryMapper entryMapper;
+    private LedgerRepository ledgerRepository;
+    private LedgerItemsRepository ledgerItemsRepository;
+    private LedgerMapper ledgerMapper;
+    private LedgerItemsMapper ledgerItemsMapper;
     private RecordCommandService recordCommandService;
 
     @BeforeEach
     void setUp() {
-        transactionRepository = mock(TransactionRepository.class);
-        entryRepository = mock(EntryRepository.class);
-        transactionMapper = mock(TransactionMapper.class);
-        entryMapper = mock(EntryMapper.class);
+        ledgerRepository = mock(LedgerRepository.class);
+        ledgerItemsRepository = mock(LedgerItemsRepository.class);
+        ledgerMapper = mock(LedgerMapper.class);
+        ledgerItemsMapper = mock(LedgerItemsMapper.class);
         recordCommandService = new RecordCommandService(
-            transactionRepository, entryRepository, transactionMapper, entryMapper
+            ledgerRepository, ledgerItemsRepository, ledgerMapper, ledgerItemsMapper
         );
     }
 
     @Test
-    void testCreateRecord_CreatesTransactionAndEntries() {
+    void testCreateRecord_CreatesLedgerAndLedgerItems() {
         CreateRecordDTO dto = CreateRecordDTOTest.createSampleCreateRecordDTO();
 
-        Transactions transaction = TransactionsTest.createSampleTransactions();
+        Ledgers ledger = LedgersTest.createSampleLedgers();
         // mock mapping function
-        when(transactionMapper.map(dto)).thenReturn(transaction);
+        when(ledgerMapper.map(dto)).thenReturn(ledger);
 
-        Entries entry1 = EntriesTest.createSampleTestData();
-        Entries entry2 = EntriesTest.createSampleTestData();
-        when(entryMapper.map(dto)).thenReturn(Arrays.asList(entry1, entry2));
-
+        LedgerItems ledgerItems1 = LedgerItemsTest.createSampleTestData();
+        LedgerItems ledgerItems2 = LedgerItemsTest.createSampleTestData();
+        when(ledgerItemsMapper.map(dto)).thenReturn(Arrays.asList(ledgerItems1, ledgerItems2));
+        // mock repository methods
         recordCommandService.createRecord(dto);
 
-        verify(transactionMapper).map(dto);
-        verify(transactionRepository).createTransaction(any(Transactions.class));
-        verify(entryMapper).map(dto);
-        verify(entryRepository, times(2)).createEntry(any(Entries.class));
+        verify(ledgerMapper).map(dto);
+        verify(ledgerRepository).createLedger(any(Ledgers.class));
+        verify(ledgerItemsMapper).map(dto);
+        verify(ledgerItemsRepository, times(2)).createLedgerItems(any(LedgerItems.class));
     }
 
     // Test Case:
-    // - Integration Testing Service-EntryMapper
+    // - Integration Testing Service-LedgerItemsMapper
     // - 
     // - 
     // - 

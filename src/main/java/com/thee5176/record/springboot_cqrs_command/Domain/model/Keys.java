@@ -42,5 +42,5 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<LedgerItemsRecord, CodeOfAccountRecord> LEDGER_ITEMS__ENTRIES_COA_FKEY = Internal.createForeignKey(LedgerItems.LEDGER_ITEMS, DSL.name("entries_coa_fkey"), new TableField[] { LedgerItems.LEDGER_ITEMS.COA }, Keys.CODE_OF_ACCOUNT_PKEY, new TableField[] { CodeOfAccount.CODE_OF_ACCOUNT.CODE }, true);
-    public static final ForeignKey<LedgerItemsRecord, LedgersRecord> LEDGER_ITEMS__ENTRIES_TRANSACTION_ID_FKEY = Internal.createForeignKey(LedgerItems.LEDGER_ITEMS, DSL.name("entries_transaction_id_fkey"), new TableField[] { LedgerItems.LEDGER_ITEMS.TRANSACTION_ID }, Keys.TRANSACTIONS_PKEY, new TableField[] { Ledgers.LEDGERS.ID }, true);
+    public static final ForeignKey<LedgerItemsRecord, LedgersRecord> LEDGER_ITEMS__ENTRIES_TRANSACTION_ID_FKEY = Internal.createForeignKey(LedgerItems.LEDGER_ITEMS, DSL.name("entries_transaction_id_fkey"), new TableField[] { LedgerItems.LEDGER_ITEMS.LEDGER_ID }, Keys.TRANSACTIONS_PKEY, new TableField[] { Ledgers.LEDGERS.ID }, true);
 }

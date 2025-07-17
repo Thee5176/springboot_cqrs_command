@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
-public class TransactionsTest {
+public class LedgersTest {
 
     @Test
     void testDefaultConstructor() {
-        Transactions transactions = new Transactions();
+        Ledgers transactions = new Ledgers();
         assertNull(transactions.getId());
         assertNull(transactions.getDate());
         assertNull(transactions.getDescription());
@@ -29,7 +29,7 @@ public class TransactionsTest {
         LocalDateTime createdAt = LocalDateTime.now();
         LocalDateTime updatedAt = LocalDateTime.now();
 
-        Transactions transactions = new Transactions(id, date, description, createdAt, updatedAt);
+        Ledgers transactions = new Ledgers(id, date, description, createdAt, updatedAt);
 
         assertEquals(id, transactions.getId());
         assertEquals(date, transactions.getDate());
@@ -46,8 +46,8 @@ public class TransactionsTest {
         LocalDateTime createdAt = LocalDateTime.now();
         LocalDateTime updatedAt = LocalDateTime.now();
 
-        Transactions original = new Transactions(id, date, description, createdAt, updatedAt);
-        Transactions copy = new Transactions(original);
+        Ledgers original = new Ledgers(id, date, description, createdAt, updatedAt);
+        Ledgers copy = new Ledgers(original);
 
         assertEquals(original.getId(), copy.getId());
         assertEquals(original.getDate(), copy.getDate());
@@ -58,7 +58,7 @@ public class TransactionsTest {
 
     @Test
     void testSettersAndGetters() {
-        Transactions transactions = new Transactions();
+        Ledgers transactions = new Ledgers();
         UUID id = UUID.randomUUID();
         LocalDate date = LocalDate.of(2024, 6, 1);
         String description = "Setter test";
@@ -86,9 +86,9 @@ public class TransactionsTest {
         LocalDateTime createdAt = LocalDateTime.now();
         LocalDateTime updatedAt = LocalDateTime.now();
 
-        Transactions t1 = new Transactions(id, date, description, createdAt, updatedAt);
-        Transactions t2 = new Transactions(id, date, description, createdAt, updatedAt);
-        Transactions t3 = new Transactions();
+        Ledgers t1 = new Ledgers(id, date, description, createdAt, updatedAt);
+        Ledgers t2 = new Ledgers(id, date, description, createdAt, updatedAt);
+        Ledgers t3 = new Ledgers();
 
         assertEquals(t1, t2);
         assertEquals(t1.hashCode(), t2.hashCode());
@@ -104,7 +104,7 @@ public class TransactionsTest {
         LocalDateTime createdAt = LocalDateTime.of(2024, 6, 1, 12, 0);
         LocalDateTime updatedAt = LocalDateTime.of(2024, 6, 2, 13, 0);
 
-        Transactions transactions = new Transactions(id, date, description, createdAt, updatedAt);
+        Ledgers transactions = new Ledgers(id, date, description, createdAt, updatedAt);
         String str = transactions.toString();
 
         assertTrue(str.contains(id.toString()));
@@ -114,14 +114,14 @@ public class TransactionsTest {
         assertTrue(str.contains(updatedAt.toString()));
     }
 
-    public static Transactions createSampleTransactions() {
+    public static Ledgers createSampleLedgers() {
         UUID id = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
         LocalDate date = LocalDate.of(2024, 6, 1);
         String description = "Sample transaction";
         LocalDateTime createdAt = LocalDateTime.of(2024, 6, 1, 10, 0);
         LocalDateTime updatedAt = LocalDateTime.of(2024, 6, 2, 11, 0);
 
-        return new Transactions(id, date, description, createdAt, updatedAt);
+        return new Ledgers(id, date, description, createdAt, updatedAt);
     }
     
 }

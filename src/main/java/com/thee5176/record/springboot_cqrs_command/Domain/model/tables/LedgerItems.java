@@ -66,9 +66,9 @@ public class LedgerItems extends TableImpl<LedgerItemsRecord> {
     public final TableField<LedgerItemsRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>public.ledger_items.transaction_id</code>.
+     * The column <code>public.ledger_items.ledger_id</code>.
      */
-    public final TableField<LedgerItemsRecord, UUID> TRANSACTION_ID = createField(DSL.name("transaction_id"), SQLDataType.UUID.nullable(false), this, "");
+    public final TableField<LedgerItemsRecord, UUID> LEDGER_ID = createField(DSL.name("ledger_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
      * The column <code>public.ledger_items.coa</code>.

@@ -5,14 +5,12 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.mapper.EntryMapper;
-import com.thee5176.record.springboot_cqrs_command.Application.mapper.TransactionMapper;
-// import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Entries;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.LedgerItems;
-// import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Transactions;
-import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.Ledgers;
-import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.EntryRepository;
-import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.TransactionRepository;
+import com.thee5176.record.springboot_cqrs_command.Application.mapper.LedgerItemsMapper;
+import com.thee5176.record.springboot_cqrs_command.Application.mapper.LedgerMapper;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItems;
+import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Ledgers;
+import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.LedgerItemsRepository;
+import com.thee5176.record.springboot_cqrs_command.Infrastructure.repository.LedgerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,32 +18,35 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @AllArgsConstructor
 public class RecordCommandService {
-    private final TransactionRepository transactionRepository;
+    private final LedgerRepository ledgerRepository;
 
-    private final EntryRepository entryRepository;
+    private final LedgerItemsRepository ledgerItemRepository;
 
-    private final TransactionMapper transactionMapper;
+    private final LedgerMapper ledgerMapper;
 
-    private final EntryMapper entryMapper;
+    private final LedgerItemsMapper LedgerItemsMapper;
 
     @Transactional
-    public void createRecord(CreateRecordDTO createRecordDTO) {
-        final UUID transaction_uuid = UUID.randomUUID();
+    public void createRecord(CreateRecordDTO createRecordDTO) throws RuntimeException {
+        final UUID ledger_uuid = UUID.randomUUID();
 
         // 取引作成stream
-        Ledgers transaction = transactionMapper.map(createRecordDTO).setId(transaction_uuid);
+        Ledgers ledger = ledgerMapper.map(createRecordDTO).setId(ledger_uuid);
         
-        transactionRepository.createTransaction(transaction);
-        log.info("Transaction created", transaction);
+        ledgerRepository.createLedger(ledger);
+        log.info("Ledger created", ledger);
         
         // 取引行別作成stream
-        List<LedgerItems> entriesList = entryMapper.map(createRecordDTO);
-        log.info("List of entry to be created: {}", entriesList);
-        entriesList.forEach(entry -> {
-            entry.setId(UUID.randomUUID());
-            entry.setTransactionId(transaction_uuid);
-            log.info("Entry created: {}", entry);
-            entryRepository.createEntry(entry);
+        List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(createRecordDTO);
+
+        if (ledgerItemsList.isEmpty()) {
+            throw new RuntimeException("Ledger items cannot be null");
+        }
+        ledgerItemsList.forEach(ledgerItem -> {
+            ledgerItem.setId(UUID.randomUUID());
+            ledgerItem.setLedgerId(ledger_uuid);
+            log.info("ledgerItem created: {}", ledgerItem);
+            ledgerItemRepository.createLedgerItems(ledgerItem);
         });
 
     }

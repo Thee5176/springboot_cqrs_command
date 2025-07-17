@@ -15,15 +15,15 @@ public class CreateRecordDTOTest {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
-        final List<CreateEntryDTO> entries = CreateEntryDTOTest.createPairSampleCreateEntryDTO();
+        final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createPairSampleCreateLedgerItemsDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
-        CreateRecordDTO dto = new CreateRecordDTO(id, date, description, entries, timestamp);
+        CreateRecordDTO dto = new CreateRecordDTO(id, date, description, ledgerItems, timestamp);
 
         assertEquals(id, dto.getId());
         assertEquals(date, dto.getDate());
         assertEquals(description, dto.getDescription());
-        assertEquals(entries, dto.getEntries());
+        assertEquals(ledgerItems, dto.getLedgerItems());
         assertEquals(timestamp, dto.getTimestamp());
     }
 
@@ -34,7 +34,7 @@ public class CreateRecordDTOTest {
         assertNull(dto.getId());
         assertNull(dto.getDate());
         assertNull(dto.getDescription());
-        assertNull(dto.getEntries());
+        assertNull(dto.getLedgerItems());
         assertNull(dto.getTimestamp());
     }
 
@@ -42,10 +42,10 @@ public class CreateRecordDTOTest {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
-        final List<CreateEntryDTO> entries = CreateEntryDTOTest.createPairSampleCreateEntryDTO();
+        final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createPairSampleCreateLedgerItemsDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
-        final CreateRecordDTO createRecordDTO = new CreateRecordDTO(id, date, description, entries, timestamp);
+        final CreateRecordDTO createRecordDTO = new CreateRecordDTO(id, date, description, ledgerItems, timestamp);
         return createRecordDTO;
     }
 }

@@ -38,17 +38,17 @@ public class LedgerItemsRecord extends UpdatableRecordImpl<LedgerItemsRecord> {
     }
 
     /**
-     * Setter for <code>public.ledger_items.transaction_id</code>.
+     * Setter for <code>public.ledger_items.ledger_id</code>.
      */
-    public LedgerItemsRecord setTransactionId(UUID value) {
+    public LedgerItemsRecord setLedgerId(UUID value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>public.ledger_items.transaction_id</code>.
+     * Getter for <code>public.ledger_items.ledger_id</code>.
      */
-    public UUID getTransactionId() {
+    public UUID getLedgerId() {
         return (UUID) get(1);
     }
 
@@ -150,11 +150,11 @@ public class LedgerItemsRecord extends UpdatableRecordImpl<LedgerItemsRecord> {
     /**
      * Create a detached, initialised LedgerItemsRecord
      */
-    public LedgerItemsRecord(UUID id, UUID transactionId, Integer coa, Double amount, BalanceType type, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public LedgerItemsRecord(UUID id, UUID ledgerId, Integer coa, Double amount, BalanceType type, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(LedgerItems.LEDGER_ITEMS);
 
         setId(id);
-        setTransactionId(transactionId);
+        setLedgerId(ledgerId);
         setCoa(coa);
         setAmount(amount);
         setType(type);
@@ -171,7 +171,7 @@ public class LedgerItemsRecord extends UpdatableRecordImpl<LedgerItemsRecord> {
 
         if (value != null) {
             setId(value.getId());
-            setTransactionId(value.getTransactionId());
+            setLedgerId(value.getLedgerId());
             setCoa(value.getCoa());
             setAmount(value.getAmount());
             setType(value.getType());

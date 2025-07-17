@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
 import com.thee5176.record.springboot_cqrs_command.Domain.service.RecordCommandService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @RestController
+@Slf4j
 @RequestMapping("/record")
 @AllArgsConstructor
 public class RecordController {
@@ -18,8 +20,13 @@ public class RecordController {
 
     @PostMapping
     public ResponseEntity<String> newBookrecord(@RequestBody CreateRecordDTO createRecordDTO) {
-        recordCommandService.createRecord(createRecordDTO);
-
+        try {
+            recordCommandService.createRecord(createRecordDTO);
+            log.info("New bookrecord created: {}", createRecordDTO);
+        } catch (Exception e) {
+            log.error("Error creating bookrecord: {}", e.getMessage());
+            return ResponseEntity.badRequest().body("Failed to create bookrecord: " + e.getMessage());
+        }
         return ResponseEntity.ok("Succesfully create new bookrecord");
     }
 
