@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRecordDTO {
+public class CreateLedgerDTO {
     @Nullable
     UUID id;
 

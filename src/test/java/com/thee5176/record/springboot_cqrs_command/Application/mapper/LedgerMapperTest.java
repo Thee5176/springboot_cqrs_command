@@ -6,18 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTOTest;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTO;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTOTest;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Ledgers;
 
 public class LedgerMapperTest {
 
     @Test
-    public void testMap_ShouldMapCreateRecordDTOToLedgers() {
+    public void testMap_ShouldMapCreateLedgerDTOToLedgers() {
         ModelMapper modelMapper = new ModelMapper();
         LedgerMapper ledgerMapper = new LedgerMapper(modelMapper);
 
-        CreateRecordDTO dto = CreateRecordDTOTest.createSampleCreateRecordDTO();
+        CreateLedgerDTO dto = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
 
         Ledgers ledger = ledgerMapper.map(dto);
 
@@ -33,7 +33,7 @@ public class LedgerMapperTest {
         ModelMapper modelMapper = new ModelMapper();
         LedgerMapper ledgerMapper = new LedgerMapper(modelMapper);
 
-        CreateRecordDTO dto = new CreateRecordDTO();
+        CreateLedgerDTO dto = new CreateLedgerDTO();
 
         Ledgers ledger = ledgerMapper.map(dto);
 

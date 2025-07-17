@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
-public class CreateRecordDTOTest {
+public class CreateLedgerDTOTest {
 
     @Test
-    void testCreateRecordDTO_AllFields() {
+    void testCreateLedgerDTO_AllFields() {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
         final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createPairSampleCreateLedgerItemsDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
-        CreateRecordDTO dto = new CreateRecordDTO(id, date, description, ledgerItems, timestamp);
+        CreateLedgerDTO dto = new CreateLedgerDTO(id, date, description, ledgerItems, timestamp);
 
         assertEquals(id, dto.getId());
         assertEquals(date, dto.getDate());
@@ -28,8 +28,8 @@ public class CreateRecordDTOTest {
     }
 
     @Test
-    void testCreateRecordDTO_NullFields() {
-        CreateRecordDTO dto = new CreateRecordDTO(null, null, null, null, null);
+    void testCreateLedgerDTO_NullFields() {
+        CreateLedgerDTO dto = new CreateLedgerDTO(null, null, null, null, null);
 
         assertNull(dto.getId());
         assertNull(dto.getDate());
@@ -38,14 +38,14 @@ public class CreateRecordDTOTest {
         assertNull(dto.getTimestamp());
     }
 
-    public static CreateRecordDTO createSampleCreateRecordDTO() {
+    public static CreateLedgerDTO createSampleCreateLedgerDTO() {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
         final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createPairSampleCreateLedgerItemsDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
-        final CreateRecordDTO createRecordDTO = new CreateRecordDTO(id, date, description, ledgerItems, timestamp);
-        return createRecordDTO;
+        final CreateLedgerDTO createLedgerDTO = new CreateLedgerDTO(id, date, description, ledgerItems, timestamp);
+        return createLedgerDTO;
     }
 }

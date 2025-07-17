@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTO;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerItemsDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Ledgers;
 
@@ -30,10 +30,10 @@ public class ModelMapperConfig {
             // Note1: The ID and LedgerId are set in the service layer.
             // Note2: The CreatedAt and UpdatedAt are set in the custom mapper layer,
 
-        // CreateRecordDTO map to Ledgers
-        modelMapper.createTypeMap(CreateRecordDTO.class, Ledgers.class)
-            .addMapping(CreateRecordDTO::getDate, Ledgers::setDate)
-            .addMapping(CreateRecordDTO::getDescription, Ledgers::setDescription)
+        // CreateLedgerDTO map to Ledgers
+        modelMapper.createTypeMap(CreateLedgerDTO.class, Ledgers.class)
+            .addMapping(CreateLedgerDTO::getDate, Ledgers::setDate)
+            .addMapping(CreateLedgerDTO::getDescription, Ledgers::setDescription)
             .addMappings(mapper -> mapper.skip(Ledgers::setCreatedAt))
             .addMappings(mapper -> mapper.skip(Ledgers::setUpdatedAt))
             .addMappings(mapper -> mapper.skip(Ledgers::setId));

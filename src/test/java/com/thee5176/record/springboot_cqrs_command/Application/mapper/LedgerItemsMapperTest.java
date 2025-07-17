@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTO;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTOTest;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerItemsDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTOTest;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItems;
 
 class LedgerItemsMapperTest {
@@ -26,7 +26,7 @@ class LedgerItemsMapperTest {
 
     @Test
     void testMapWithMultipleLedgerItems() {
-        CreateRecordDTO recordDTO = CreateRecordDTOTest.createSampleCreateRecordDTO();
+        CreateLedgerDTO recordDTO = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
 
         List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(recordDTO);
 
@@ -54,7 +54,7 @@ class LedgerItemsMapperTest {
 
     @Test
     void testMapWithEmptyLedgerItemsList() {
-        CreateRecordDTO recordDTO = new CreateRecordDTO();
+        CreateLedgerDTO recordDTO = new CreateLedgerDTO();
         recordDTO.setLedgerItems(Arrays.asList());
         recordDTO.setTimestamp(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
 

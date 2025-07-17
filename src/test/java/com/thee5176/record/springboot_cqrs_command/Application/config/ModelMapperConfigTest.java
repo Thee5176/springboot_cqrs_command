@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTO;
+import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerDTOTest;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerItemsDTO;
 import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateLedgerItemsDTOTest;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTO;
-import com.thee5176.record.springboot_cqrs_command.Application.dto.CreateRecordDTOTest;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.record.springboot_cqrs_command.Domain.model.tables.pojos.Ledgers;
 
@@ -40,8 +40,8 @@ class ModelMapperConfigTest {
     }
 
     @Test
-    void testMappingCreateRecordDTOToLedgersWithoutID() {
-        CreateRecordDTO dto = CreateRecordDTOTest.createSampleCreateRecordDTO();
+    void testMappingCreateLedgerDTOToLedgersWithoutID() {
+        CreateLedgerDTO dto = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
         dto.setId(null);
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
