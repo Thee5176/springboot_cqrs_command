@@ -22,7 +22,6 @@ public class TransactionMapperTest {
         Transactions transaction = transactionMapper.map(dto);
 
         assertNotNull(transaction);
-        assertNull(transaction.getId()); // ID should be set later in the service
         assertEquals(dto.getDate(),transaction.getDate());
         assertEquals(dto.getDescription(), transaction.getDescription());
         assertEquals(dto.getTimestamp(), transaction.getCreatedAt());

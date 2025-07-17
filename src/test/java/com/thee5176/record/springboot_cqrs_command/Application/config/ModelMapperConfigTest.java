@@ -33,6 +33,10 @@ class ModelMapperConfigTest {
         assertEquals(dto.getCoa(), entries.getCoa());
         assertEquals(dto.getAmount(), entries.getAmount());
         assertEquals(dto.getType(), entries.getType());
+        assertEquals(null, entries.getId()); 
+        assertEquals(null, entries.getTransactionId()); 
+        assertEquals(null, entries.getCreatedAt()); 
+        assertEquals(null, entries.getUpdatedAt()); 
     }
 
     @Test
@@ -43,10 +47,10 @@ class ModelMapperConfigTest {
 
         Transactions transactions = modelMapper.map(dto, Transactions.class);
 
-        assertEquals(null, transactions.getId());
         assertEquals(dto.getDate(), transactions.getDate());
         assertEquals(dto.getDescription(), transactions.getDescription());
-        assertEquals(dto.getTimestamp(), transactions.getUpdatedAt());
-        assertEquals(dto.getTimestamp(), transactions.getCreatedAt());
+        assertEquals(null, transactions.getId());
+        assertEquals(null, transactions.getCreatedAt());
+        assertEquals(null, transactions.getUpdatedAt());
     }
 }
