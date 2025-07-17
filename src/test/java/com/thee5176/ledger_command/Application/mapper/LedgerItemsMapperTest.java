@@ -63,8 +63,6 @@ class LedgerItemsMapperTest {
         assertNotNull(ledgerItemsList);
         assertEquals(0, ledgerItemsList.size());
     }
-<<<<<<< HEAD
-=======
 
     @Test
     void testMapWithNullInput() {
@@ -82,5 +80,4 @@ class LedgerItemsMapperTest {
         List<?> result = LedgerItemsMapper.map(dtoWithNullLedgerItems);
         assertEquals(null, result, "Mapper should return null when ledgerItems is null");
     }
->>>>>>> feature/refactor-entity-name
 }

@@ -8,20 +8,11 @@
 		<version>3.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.thee5176.record</groupId>
-	<artifactId>springboot_cqrs_command</artifactId>
+	<groupId>com.thee5176.ledger_command</groupId>
+	<artifactId>ledger_command</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-<<<<<<< HEAD
 	<name>ledger_command</name>
-<<<<<<< HEAD
-	<description>CQRS command service for Double Accounting Management System</description>
-=======
 	<description>CQRS command service for Double Accounting System</description>
->>>>>>> feature/refactor-entity-name
-=======
-	<name>springboot_cqrs_command</name>
-	<description>Demo project for Spring Boot</description>
->>>>>>> parent of 3ab3dfb (Refactor Entity and DTO: Ledger, LedgerItems, RecordDTO alongwith associate items (#8))
 	<url/>
 	<licenses>
 		<license/>
@@ -191,41 +182,6 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-<<<<<<< HEAD
-						<configuration>
-							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>${jooq.codegen.db.url}</url>
-								<user>${jooq.codegen.db.user}</user>
-								<password>${jooq.codegen.db.password}</password>
-							</jdbc>
-							<generator>
-								<database>
-									<name>org.jooq.meta.postgres.PostgresDatabase</name>
-									<includes>.*</includes>
-									<excludes></excludes>
-									<inputSchema>public</inputSchema>
-								</database>
-								<generate>
-									<pojos>true</pojos>
-									<pojosEqualsAndHashCode>
-										true
-									</pojosEqualsAndHashCode>
-									<javaTimeTypes>true</javaTimeTypes>
-									<fluentSetters>true</fluentSetters>
-								</generate>
-								<target>
-									<packageName>
-										com.thee5176.record.springboot_cqrs_command.Domain.model
-									</packageName>
-									<directory>
-										src/main/java
-									</directory>
-								</target>
-							</generator>
-						</configuration>
-=======
->>>>>>> feature/refactor-entity-name
 					</execution>
 				</executions>
 				<configuration>
