@@ -8,11 +8,11 @@
 		<version>3.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.thee5176.record</groupId>
-	<artifactId>springboot_cqrs_command</artifactId>
+	<groupId>com.thee5176.ledger_command</groupId>
+	<artifactId>ledger_command</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot_cqrs_command</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ledger_command</name>
+	<description>CQRS command service for Double Accounting Management System</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -191,6 +191,12 @@
 								<database>
 									<name>org.jooq.meta.postgres.PostgresDatabase</name>
 									<includes>.*</includes>
+									<recordVersionFields>false</recordVersionFields>
+									<recordTimestampFields>false</recordTimestampFields>
+									<includeRoutines>false</includeRoutines>
+									<includeUDTs>false</includeUDTs>
+									<includeSequences>false</includeSequences>
+									<includePackages>false</includePackages>
 									<excludes></excludes>
 									<inputSchema>public</inputSchema>
 								</database>
@@ -204,7 +210,7 @@
 								</generate>
 								<target>
 									<packageName>
-										com.thee5176.record.springboot_cqrs_command.Domain.model
+										com.thee5176.ledger_command.Domain.model
 									</packageName>
 									<directory>
 										src/main/java
