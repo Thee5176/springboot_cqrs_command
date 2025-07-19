@@ -1,10 +1,8 @@
 package com.thee5176.ledger_command.Application.controller;
 
-import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,17 +20,11 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/ledger_items")
 @AllArgsConstructor
 public class LedgerItemsController {
-    //Repository確認用Controller
-    private final LedgerItemsRepository LedgerItemsMapper;
-
-    @GetMapping
-    public List<LedgerItems> getLedgerItems() {
-        return LedgerItemsMapper.getLedgerItems();
-    }
+    private final LedgerItemsRepository ledgerItemsRepository;
 
     @PostMapping
     public ResponseEntity<String> createLedgerItems(@RequestParam LedgerItems ledgerItems) {
-        LedgerItemsMapper.createLedgerItems(ledgerItems);
+        ledgerItemsRepository.createLedgerItems(ledgerItems);
         
         return ResponseEntity.ok("created ledgerItems succesfully");
     }
@@ -40,14 +32,14 @@ public class LedgerItemsController {
 
     @PutMapping
     public ResponseEntity<String> updateLedgerItems(@RequestParam UUID uuid, @RequestBody LedgerItems ledgerItems) {
-        LedgerItemsMapper.updateLedgerItems(uuid, ledgerItems);
+        ledgerItemsRepository.updateLedgerItems(uuid, ledgerItems);
 
         return ResponseEntity.ok("updated ledgerItems succesfully");
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteLedgerItems(@RequestParam UUID uuid) {
-        LedgerItemsMapper.deleteLedgerItems(uuid);
+        ledgerItemsRepository.deleteLedgerItems(uuid);
 
         return ResponseEntity.ok("deleted ledgerItems succesfully");
     }

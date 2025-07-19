@@ -38,5 +38,5 @@ CREATE TABLE "code_of_account" (
   "type" balance_type NOT NULL
 );
 
-ALTER TABLE "entries" ADD FOREIGN KEY ("coa") REFERENCES "code_of_account" ("code");
-ALTER TABLE "entries" ADD FOREIGN KEY ("transaction_id") REFERENCES "transactions" ("id");
+ALTER TABLE "entries" ADD FOREIGN KEY ("coa") REFERENCES "code_of_account" ("code") ON DELETE SET NULL;
+ALTER TABLE "entries" ADD FOREIGN KEY ("transaction_id") REFERENCES "transactions" ("id") ON DELETE CASCADE;

@@ -47,4 +47,18 @@ public class LedgerCommandService {
         });
 
     }
+
+    @Transactional
+    public void updateLedger(UUID uuid, CreateLedgerDTO createLedgerDTO) {
+        Ledgers ledgers = ledgerMapper.map(createLedgerDTO).setId(uuid);
+        ledgerRepository.updateLedger(uuid, ledgers);
+        log.info("Ledger updated: {}", ledgers);
+    }
+
+    @Transactional
+    public void deleteLedger(UUID uuid) {
+        // cascade delete apply in DB layer
+        ledgerRepository.deleteLedger(uuid);
+        log.info("Ledger deleted: {}", uuid);
+    }
 }
