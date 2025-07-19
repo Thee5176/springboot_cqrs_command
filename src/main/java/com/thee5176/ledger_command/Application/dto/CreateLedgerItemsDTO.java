@@ -12,4 +12,8 @@ public class CreateLedgerItemsDTO{
     Integer coa;
     Double amount;
     BalanceType type;
+
+    public Double getBalance() {
+        return BalanceType.Debit.equals(type) ? amount : amount * -1;
+    }
 }
