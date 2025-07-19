@@ -1,16 +1,15 @@
 services:
   command_service:
     build: .
-    image: springboot_cqrs_command
     container_name: springboot_cqrs_command
     ports:
-    - "8182:8080"
+    - "8181:8080"
     depends_on:
     - postgres
 
   postgres:
     image: "postgres:latest"
-    container_name: postgres-command-record
+    container_name: postgres-cqrs-db
     environment:
       - "POSTGRES_DB=record"
       - "POSTGRES_USER=springboot_admin"

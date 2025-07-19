@@ -12,7 +12,7 @@
 	<artifactId>ledger_command</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ledger_command</name>
-	<description>CQRS command service for Double Accounting Management System</description>
+	<description>CQRS command service for Double Accounting System</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -99,18 +99,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.11.0-M1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.11.0-M1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -128,7 +116,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>my-spring-app</repository>
+					<repository>ledger_command</repository>
 					<tag>${project.version}</tag>
 				</configuration>
 			</plugin>
@@ -171,56 +159,56 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
 				<executions>
 					<execution>
-						<id>generate-jooq</id>
+						<id>jooq-codegen</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<configuration>
-							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>${jooq.codegen.db.url}</url>
-								<user>${jooq.codegen.db.user}</user>
-								<password>${jooq.codegen.db.password}</password>
-							</jdbc>
-							<generator>
-								<database>
-									<name>org.jooq.meta.postgres.PostgresDatabase</name>
-									<includes>.*</includes>
-									<recordVersionFields>false</recordVersionFields>
-									<recordTimestampFields>false</recordTimestampFields>
-									<includeRoutines>false</includeRoutines>
-									<includeUDTs>false</includeUDTs>
-									<includeSequences>false</includeSequences>
-									<includePackages>false</includePackages>
-									<excludes></excludes>
-									<inputSchema>public</inputSchema>
-								</database>
-								<generate>
-									<pojos>true</pojos>
-									<pojosEqualsAndHashCode>
-										true
-									</pojosEqualsAndHashCode>
-									<javaTimeTypes>true</javaTimeTypes>
-									<fluentSetters>true</fluentSetters>
-								</generate>
-								<target>
-									<packageName>
-										com.thee5176.ledger_command.Domain.model
-									</packageName>
-									<directory>
-										src/main/java
-									</directory>
-								</target>
-							</generator>
-						</configuration>
 					</execution>
 				</executions>
-            </plugin>
+				<configuration>
+					<jdbc>
+						<driver>org.postgresql.Driver</driver>
+						<url>${jooq.codegen.db.url}</url>
+						<user>${jooq.codegen.db.user}</user>
+						<password>${jooq.codegen.db.password}</password>
+					</jdbc>
+					<generator>
+						<database>
+							<name>org.jooq.meta.postgres.PostgresDatabase</name>
+							<includes>.*</includes>
+							<recordVersionFields>false</recordVersionFields>
+							<recordTimestampFields>false</recordTimestampFields>
+							<includeRoutines>false</includeRoutines>
+							<includeUDTs>false</includeUDTs>
+							<includeSequences>false</includeSequences>
+							<includePackages>false</includePackages>
+							<excludes></excludes>
+							<inputSchema>public</inputSchema>
+						</database>
+						<generate>
+							<pojos>true</pojos>
+							<pojosEqualsAndHashCode>
+								true
+							</pojosEqualsAndHashCode>
+							<javaTimeTypes>true</javaTimeTypes>
+							<fluentSetters>true</fluentSetters>
+						</generate>
+						<target>
+							<packageName>
+								com.thee5176.ledger_command.Domain.model
+							</packageName>
+							<directory>
+								src/main/java
+							</directory>
+						</target>
+					</generator>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
