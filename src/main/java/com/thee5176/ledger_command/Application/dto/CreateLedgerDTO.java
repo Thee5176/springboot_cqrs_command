@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.lang.Nullable;
-import com.thee5176.ledger_command.Domain.validation.BalanceCheck;
+import com.thee5176.ledger_command.Application.validation.BalanceCheck;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;

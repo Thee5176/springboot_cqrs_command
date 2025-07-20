@@ -1,4 +1,4 @@
-package com.thee5176.ledger_command.Domain.validation;
+package com.thee5176.ledger_command.Application.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

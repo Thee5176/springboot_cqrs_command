@@ -9,15 +9,17 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 public class CreateLedgerDTOTest {
+    // Test data for Dr/Cr balaced Ledgers
+    // Arrange
+    final UUID id = UUID.randomUUID();
+    final LocalDate date = LocalDate.of(2024, 6, 1);
+    final String description = "Test description";
+    final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createBalancedSampleCreateLedgerItemsDTO();
+    final LocalDateTime timestamp = LocalDateTime.now();
 
+    //Assertions for CreateLedgerDTO
     @Test
     void testCreateLedgerDTO_AllFields() {
-        final UUID id = UUID.randomUUID();
-        final LocalDate date = LocalDate.of(2024, 6, 1);
-        final String description = "Test description";
-        final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createPairSampleCreateLedgerItemsDTO();
-        final LocalDateTime timestamp = LocalDateTime.now();
-
         CreateLedgerDTO dto = new CreateLedgerDTO(id, date, description, ledgerItems, timestamp);
 
         assertEquals(id, dto.getId());
@@ -42,7 +44,7 @@ public class CreateLedgerDTOTest {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
-        final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createPairSampleCreateLedgerItemsDTO();
+        final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createBalancedSampleCreateLedgerItemsDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
         final CreateLedgerDTO createLedgerDTO = new CreateLedgerDTO(id, date, description, ledgerItems, timestamp);

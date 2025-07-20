@@ -1,4 +1,4 @@
-package com.thee5176.ledger_command.Domain.validation;
+package com.thee5176.ledger_command.Application.validation;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,13 +13,9 @@ public class BalanceCheckValidator implements ConstraintValidator<BalanceCheck, 
 	
 	@Override
 	public boolean isValid(List<CreateLedgerItemsDTO> ledgerItems, ConstraintValidatorContext context) {
-		if (ledgerItems.size() < 2) {
-			return false;
-		}
 		return ledgerItems.stream()
             .map(item -> item.getBalance())
-			.map(BigDecimal::new)
-            .reduce(BigDecimal.ZERO, BigDecimal::add)
-            .compareTo(BigDecimal.ZERO) == 0;
+            .reduce(0.0, Double::sum)
+            .compareTo(0.0) == 0;
 	}
 }
