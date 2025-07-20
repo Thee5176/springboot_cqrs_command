@@ -1,16 +1,18 @@
 services:
-  command_service:
+  test_command_service:
     build: .
-    image: springboot_cqrs_command
-    container_name: springboot_cqrs_command
+    container_name: test_command_service
+    environment:
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://test_command_postgres:5432/record"
+      - "SPRING_DATASOURCE_USERNAME=springboot_admin"
+      - "SPRING_DATASOURCE_PASSWORD=password"
+      - "SERVER_PORT=8081"
     ports:
-    - "8182:8080"
-    depends_on:
-    - postgres
+      - "8182:8081"
 
-  postgres:
+  test_command_postgres:
     image: "postgres:latest"
-    container_name: postgres-command-record
+    container_name: test_command_postgres_db
     environment:
       - "POSTGRES_DB=record"
       - "POSTGRES_USER=springboot_admin"
