@@ -34,11 +34,7 @@ public class LedgerCommandService {
         Ledgers ledger = ledgerMapper.map(createLedgerDTO).setId(ledger_uuid);
         
         ledgerRepository.createLedger(ledger);
-<<<<<<< HEAD
-        log.info("Ledger created", ledger);
-=======
         log.info("Ledger created: {}", ledger);
->>>>>>> feature/refactor-entity-name
         
         // 取引行別作成stream
         List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(createLedgerDTO);
@@ -51,9 +47,6 @@ public class LedgerCommandService {
         });
 
     }
-<<<<<<< HEAD
-}
-=======
 
     @Transactional
     public void updateLedger(UUID uuid, CreateLedgerDTO createLedgerDTO) {
@@ -69,4 +62,3 @@ public class LedgerCommandService {
         log.info("Ledger deleted: {}", uuid);
     }
 }
->>>>>>> feature/refactor-entity-name

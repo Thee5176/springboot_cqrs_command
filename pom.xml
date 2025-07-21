@@ -12,11 +12,7 @@
 	<artifactId>ledger_command</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ledger_command</name>
-<<<<<<< HEAD
-	<description>CQRS command service for Double Accounting Management System</description>
-=======
 	<description>CQRS command service for Double Accounting System</description>
->>>>>>> feature/refactor-entity-name
 	<url/>
 	<licenses>
 		<license/>
@@ -186,47 +182,6 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-<<<<<<< HEAD
-						<configuration>
-							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>${jooq.codegen.db.url}</url>
-								<user>${jooq.codegen.db.user}</user>
-								<password>${jooq.codegen.db.password}</password>
-							</jdbc>
-							<generator>
-								<database>
-									<name>org.jooq.meta.postgres.PostgresDatabase</name>
-									<includes>.*</includes>
-									<recordVersionFields>false</recordVersionFields>
-									<recordTimestampFields>false</recordTimestampFields>
-									<includeRoutines>false</includeRoutines>
-									<includeUDTs>false</includeUDTs>
-									<includeSequences>false</includeSequences>
-									<includePackages>false</includePackages>
-									<excludes></excludes>
-									<inputSchema>public</inputSchema>
-								</database>
-								<generate>
-									<pojos>true</pojos>
-									<pojosEqualsAndHashCode>
-										true
-									</pojosEqualsAndHashCode>
-									<javaTimeTypes>true</javaTimeTypes>
-									<fluentSetters>true</fluentSetters>
-								</generate>
-								<target>
-									<packageName>
-										com.thee5176.ledger_command.Domain.model
-									</packageName>
-									<directory>
-										src/main/java
-									</directory>
-								</target>
-							</generator>
-						</configuration>
-=======
->>>>>>> feature/refactor-entity-name
 					</execution>
 				</executions>
 				<configuration>

@@ -1,11 +1,5 @@
 package com.thee5176.ledger_command.Application.controller;
 
-<<<<<<< HEAD
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-=======
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,7 +8,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
->>>>>>> feature/refactor-entity-name
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,10 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> feature/refactor-entity-name
 @RestController
 @Slf4j
 @RequestMapping("/ledger")
@@ -52,10 +42,6 @@ public class LedgerController {
         return ResponseEntity.ok("Successfully created new ledger");
     }
 
-<<<<<<< HEAD
-    // TODO : UPDATE and DELETE endpoints
-}
-=======
     @PutMapping
     public ResponseEntity<String> updateLedger(@PathVariable UUID uuid, @RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -85,4 +71,3 @@ public class LedgerController {
         return ResponseEntity.ok("Successfully deleted ledger");
     }
 }   
->>>>>>> feature/refactor-entity-name
