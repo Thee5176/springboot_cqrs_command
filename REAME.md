@@ -1,12 +1,8 @@
-# Command サーバ起動ステップ
-
-1. Docker コンテナの起動（DB 運用）−JOOQ codegen に用意する −
-
-```bash
-docker-compose up -d --build
-```
-
-2. SpringBoot サーバ起動
-```bash
-mvn spring-boot:run
+# Command サーバのみ起動テストステップ
+bash```
+docker compose down -v
+docker compose up test_command_postgres -d
+mvn flyway:migrate
+mvn clean package -DskipTests               #DBコンテナ起動していないと、総合テスト実行できない。 (ModelMapperTest)
+docker compsoe up -d --build
 ```
