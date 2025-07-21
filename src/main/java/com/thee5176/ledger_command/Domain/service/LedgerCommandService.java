@@ -34,7 +34,7 @@ public class LedgerCommandService {
         Ledgers ledger = ledgerMapper.map(createLedgerDTO).setId(ledger_uuid);
         
         ledgerRepository.createLedger(ledger);
-        log.info("Ledger created", ledger);
+        log.info("Ledger created: {}", ledger);
         
         // 取引行別作成stream
         List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(createLedgerDTO);
