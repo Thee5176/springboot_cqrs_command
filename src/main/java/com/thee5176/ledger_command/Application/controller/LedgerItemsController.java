@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.ledger_command.Infrastructure.repository.LedgerItemsRepository;
@@ -23,7 +22,7 @@ public class LedgerItemsController {
     private final LedgerItemsRepository ledgerItemsRepository;
 
     @PostMapping
-    public ResponseEntity<String> createLedgerItems(@RequestParam LedgerItems ledgerItems) {
+    public ResponseEntity<String> createLedgerItems(@RequestBody LedgerItems ledgerItems) {
         ledgerItemsRepository.createLedgerItems(ledgerItems);
         
         return ResponseEntity.ok("created ledgerItems succesfully");
@@ -31,14 +30,14 @@ public class LedgerItemsController {
     
 
     @PutMapping
-    public ResponseEntity<String> updateLedgerItems(@RequestParam UUID uuid, @RequestBody LedgerItems ledgerItems) {
+    public ResponseEntity<String> updateLedgerItems(@RequestBody UUID uuid, @RequestBody LedgerItems ledgerItems) {
         ledgerItemsRepository.updateLedgerItems(uuid, ledgerItems);
 
         return ResponseEntity.ok("updated ledgerItems succesfully");
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteLedgerItems(@RequestParam UUID uuid) {
+    public ResponseEntity<String> deleteLedgerItems(@RequestBody UUID uuid) {
         ledgerItemsRepository.deleteLedgerItems(uuid);
 
         return ResponseEntity.ok("deleted ledgerItems succesfully");
