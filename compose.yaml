@@ -1,8 +1,6 @@
 services:
   command_service:
-    build: .
-    image: springboot_cqrs_command
-    container_name: springboot_cqrs_command
+    image: .
     ports:
     - "8182:8080"
     depends_on:
