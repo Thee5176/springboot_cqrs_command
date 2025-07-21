@@ -25,7 +25,6 @@ public class LedgerRepository {
         dslContext.update(Tables.LEDGERS)
             .set(Tables.LEDGERS.DATE, Ledgers.getDate())
             .set(Tables.LEDGERS.DESCRIPTION, Ledgers.getDescription())
-            .set(Tables.LEDGERS.CREATED_AT, Ledgers.getCreatedAt())
             .set(Tables.LEDGERS.UPDATED_AT, Ledgers.getUpdatedAt())
             .where(Tables.LEDGERS.ID.eq(uuid))
                 .execute();
