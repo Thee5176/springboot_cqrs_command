@@ -12,4 +12,11 @@ public class CreateLedgerItemsDTO{
     Integer coa;
     Double amount;
     BalanceType type;
+<<<<<<< HEAD
+=======
+
+    public Double getBalance() {
+        return BalanceType.Debit.equals(type) ? amount : amount * -1;
+    }
+>>>>>>> feature/refactor-entity-name
 }

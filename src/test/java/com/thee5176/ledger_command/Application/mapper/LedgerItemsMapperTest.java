@@ -63,4 +63,24 @@ class LedgerItemsMapperTest {
         assertNotNull(ledgerItemsList);
         assertEquals(0, ledgerItemsList.size());
     }
+<<<<<<< HEAD
+=======
+
+    @Test
+    void testMapWithNullInput() {
+        // Assuming the mapper should return null when input is null
+        // If it should throw, use assertThrows instead
+        List<?> result = LedgerItemsMapper.map(null);
+        assertEquals(null, result, "Mapper should return null when input is null");
+    }
+
+    @Test
+    void testMapWithNullLedgerItems() {
+        CreateLedgerDTO dtoWithNullLedgerItems = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
+        dtoWithNullLedgerItems.setLedgerItems(null);
+        // Assuming the mapper should return null or empty list when ledgerItems is null
+        List<?> result = LedgerItemsMapper.map(dtoWithNullLedgerItems);
+        assertEquals(null, result, "Mapper should return null when ledgerItems is null");
+    }
+>>>>>>> feature/refactor-entity-name
 }

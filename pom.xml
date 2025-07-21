@@ -12,7 +12,11 @@
 	<artifactId>ledger_command</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ledger_command</name>
+<<<<<<< HEAD
 	<description>CQRS command service for Double Accounting Management System</description>
+=======
+	<description>CQRS command service for Double Accounting System</description>
+>>>>>>> feature/refactor-entity-name
 	<url/>
 	<licenses>
 		<license/>
@@ -32,10 +36,24 @@
 		<sonar.organization>thee5176</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<!-- jOOQ Codegen DB properties -->
-		<jooq.codegen.db.url>jdbc:postgresql://localhost:5999/record</jooq.codegen.db.url>
-		<jooq.codegen.db.user>springboot_admin</jooq.codegen.db.user>
-		<jooq.codegen.db.password>password</jooq.codegen.db.password>
+		<db.url>${env.SPRING_DATASOURCE_URL}</db.url>
+		<db.user>${env.SPRING_DATASOURCE_USERNAME}</db.user>
+		<db.password>${env.SPRING_DATASOURCE_PASSWORD}</db.password>
 	</properties>
+	<profiles>
+		<!-- Fallback profile if env variables are not defined -->
+		<profile>
+			<id>default-db</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<db.url>jdbc:postgresql://localhost:5999/record</db.url>
+				<db.user>springboot_admin</db.user>
+				<db.password>password</db.password>
+			</properties>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -99,23 +117,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.11.0-M1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.11.0-M1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
+			<!-- <plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.13</version>
@@ -128,10 +134,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<repository>my-spring-app</repository>
+					<repository>ledger_command</repository>
 					<tag>${project.version}</tag>
 				</configuration>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -162,24 +168,25 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>${flyway.version}</version>
 				<configuration>
-					<url>${jooq.codegen.db.url}</url>
-					<user>${jooq.codegen.db.user}</user>
-					<password>${jooq.codegen.db.password}</password>
+					<url>${db.url}</url>
+					<user>${db.user}</user>
+					<password>${db.password}</password>
 					<locations>
 						<location>filesystem:src/main/resources/db/migration</location>
 					</locations>
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
 				<executions>
 					<execution>
-						<id>generate-jooq</id>
+						<id>jooq-codegen</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
+<<<<<<< HEAD
 						<configuration>
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
@@ -218,9 +225,49 @@
 								</target>
 							</generator>
 						</configuration>
+=======
+>>>>>>> feature/refactor-entity-name
 					</execution>
 				</executions>
-            </plugin>
+				<configuration>
+					<jdbc>
+						<driver>org.postgresql.Driver</driver>
+						<url>${db.url}</url>
+						<user>${db.user}</user>
+						<password>${db.password}</password>
+					</jdbc>
+					<generator>
+						<database>
+							<name>org.jooq.meta.postgres.PostgresDatabase</name>
+							<includes>.*</includes>
+							<recordVersionFields>false</recordVersionFields>
+							<recordTimestampFields>false</recordTimestampFields>
+							<includeRoutines>false</includeRoutines>
+							<includeUDTs>false</includeUDTs>
+							<includeSequences>false</includeSequences>
+							<includePackages>false</includePackages>
+							<excludes></excludes>
+							<inputSchema>public</inputSchema>
+						</database>
+						<generate>
+							<pojos>true</pojos>
+							<pojosEqualsAndHashCode>
+								true
+							</pojosEqualsAndHashCode>
+							<javaTimeTypes>true</javaTimeTypes>
+							<fluentSetters>true</fluentSetters>
+						</generate>
+						<target>
+							<packageName>
+								com.thee5176.ledger_command.Domain.model
+							</packageName>
+							<directory>
+								src/main/java
+							</directory>
+						</target>
+					</generator>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

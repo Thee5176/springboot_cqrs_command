@@ -26,7 +26,10 @@ public class LedgerItemsRepository {
             .set(Tables.LEDGER_ITEMS.AMOUNT, ledgerItems.getAmount())
             .set(Tables.LEDGER_ITEMS.COA, ledgerItems.getCoa())
             .set(Tables.LEDGER_ITEMS.TYPE, ledgerItems.getType())
+<<<<<<< HEAD
             .set(Tables.LEDGER_ITEMS.CREATED_AT, ledgerItems.getCreatedAt())
+=======
+>>>>>>> feature/refactor-entity-name
             .set(Tables.LEDGER_ITEMS.UPDATED_AT, ledgerItems.getUpdatedAt())
             .where(Tables.LEDGER_ITEMS.ID.eq(uuid))
                 .execute();

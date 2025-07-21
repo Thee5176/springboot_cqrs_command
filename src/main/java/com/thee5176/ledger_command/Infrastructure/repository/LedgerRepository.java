@@ -1,6 +1,9 @@
 package com.thee5176.ledger_command.Infrastructure.repository;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> feature/refactor-entity-name
 import java.util.UUID;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
@@ -26,7 +29,10 @@ public class LedgerRepository {
         dslContext.update(Tables.LEDGERS)
             .set(Tables.LEDGERS.DATE, Ledgers.getDate())
             .set(Tables.LEDGERS.DESCRIPTION, Ledgers.getDescription())
+<<<<<<< HEAD
             .set(Tables.LEDGERS.CREATED_AT, Ledgers.getCreatedAt())
+=======
+>>>>>>> feature/refactor-entity-name
             .set(Tables.LEDGERS.UPDATED_AT, Ledgers.getUpdatedAt())
             .where(Tables.LEDGERS.ID.eq(uuid))
                 .execute();
@@ -38,10 +44,13 @@ public class LedgerRepository {
         .where(Tables.LEDGERS.ID.eq(uuid))
             .execute();
     }
+<<<<<<< HEAD
 
     //Read - https://www.jooq.org/doc/latest/manual/sql-building/sql-statements/select-statement/#select-from-single-tables
     public List<Ledgers> getLedgers() {
         return dslContext.selectFrom(Tables.LEDGERS)
             .fetchInto(Ledgers.class);
     }
+=======
+>>>>>>> feature/refactor-entity-name
 }
