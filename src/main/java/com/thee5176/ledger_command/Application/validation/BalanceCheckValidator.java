@@ -15,6 +15,6 @@ public class BalanceCheckValidator implements ConstraintValidator<BalanceCheck, 
 		return ledgerItems.stream()
 	            	.map(item -> item.getBalance())
 			.map(BigDecimal::new)
-			.reduce(BigDecimal.ZERO, BigDecimal::add)
+			.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 }
