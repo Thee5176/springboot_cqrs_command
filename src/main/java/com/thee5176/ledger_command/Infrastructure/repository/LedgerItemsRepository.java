@@ -1,5 +1,6 @@
 package com.thee5176.ledger_command.Infrastructure.repository;
 
+import java.util.List;
 import java.util.UUID;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,12 @@ public class LedgerItemsRepository {
         dslContext.delete(Tables.LEDGER_ITEMS)
             .where(Tables.LEDGER_ITEMS.ID.eq(uuid))
                 .execute();
+    }
+
+    public List<LedgerItems> getLedgerItemsByLedgerId(UUID ledgerId) {
+        return dslContext.selectFrom(Tables.LEDGER_ITEMS)
+                .where(Tables.LEDGER_ITEMS.LEDGER_ID.eq(ledgerId))
+                .fetchInto(LedgerItems.class);
     }
 
     public LedgerItems getLedgerItems(UUID uuid) {

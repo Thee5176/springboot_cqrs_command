@@ -54,12 +54,34 @@ public class LedgerCommandService {
             throw new IllegalArgumentException("Ledger ID must not be null for update.");
         }
         
-        List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(createLedgerDTO);
-        ledgerItemsList.forEach(
-            ledgerItems -> ledgerItemRepository.updateLedgerItems(ledgerItems)
-        );
-        log.info("Ledger items updated: {}", ledgerItemsList);
-        
+        List<LedgerItems> ledgerItemsUpdatedList = LedgerItemsMapper.map(createLedgerDTO);
+        List<LedgerItems> existingLedgerItems = ledgerItemRepository.getLedgerItemsByLedgerId(createLedgerDTO.getId());
+
+        //Test Case:
+        // - add new itemLedgers?
+        // - delete itemLedgers?
+
+        // Update existing ledger items or create new ones
+        ledgerItemsUpdatedList.stream().forEach(ledgerItems -> {
+            if (ledgerItems.getId() == null) {
+                ledgerItems.setId(UUID.randomUUID());
+            }
+            ledgerItems.setLedgerId(createLedgerDTO.getId());
+            ledgerItemRepository.updateLedgerItems(ledgerItems);
+        });
+
+        // Delete ledger items that are not in the updated list
+        existingLedgerItems.stream()
+                .filter(existingItem -> ledgerItemsUpdatedList.stream()
+                        .noneMatch(updatedItem -> updatedItem.getId().equals(existingItem.getId()))
+                        )
+                .forEach(itemToDelete -> {
+                    ledgerItemRepository.deleteLedgerItems(itemToDelete.getId());
+                    log.info("Ledger item deleted: {}", itemToDelete);
+                });
+
+        log.info("Ledger items updated: {}", ledgerItemsUpdatedList);
+
         Ledgers ledgers = ledgerMapper.map(createLedgerDTO);
         ledgerRepository.updateLedger(ledgers);
         log.info("Ledger updated: {}", ledgers);
