@@ -53,7 +53,13 @@ public class LedgerCommandService {
         if (createLedgerDTO.getId() == null) {
             throw new IllegalArgumentException("Ledger ID must not be null for update.");
         }
-
+        
+        List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(createLedgerDTO);
+        ledgerItemsList.forEach(
+            ledgerItems -> ledgerItemRepository.updateLedgerItems(ledgerItems)
+        );
+        log.info("Ledger items updated: {}", ledgerItemsList);
+        
         Ledgers ledgers = ledgerMapper.map(createLedgerDTO);
         ledgerRepository.updateLedger(ledgers);
         log.info("Ledger updated: {}", ledgers);
