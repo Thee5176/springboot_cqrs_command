@@ -13,8 +13,8 @@ public class BalanceCheckValidator implements ConstraintValidator<BalanceCheck, 
 	@Override
 	public boolean isValid(List<CreateLedgerItemsDTO> ledgerItems, ConstraintValidatorContext context) {
 		return ledgerItems.stream()
-            .map(item -> item.getBalance())
-            .reduce(0.0, Double::sum)
-            .compareTo(0.0) == 0;
+	            	.map(item -> item.getBalance())
+			.map(BigDecimal::new)
+			.reduce(BigDecimal.ZERO, BigDecimal::add)
 	}
 }
