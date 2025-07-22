@@ -15,8 +15,6 @@ public class LedgerMapper {
 
     public Ledgers map(CreateLedgerDTO createLedgerDTO) {
         Ledgers ledger = this.modelMapper.map(createLedgerDTO, Ledgers.class);   
-        ledger.setCreatedAt(createLedgerDTO.getTimestamp());
-        ledger.setUpdatedAt(createLedgerDTO.getTimestamp());
         // Note: The ID is set in the service layer.
         return ledger;
     }

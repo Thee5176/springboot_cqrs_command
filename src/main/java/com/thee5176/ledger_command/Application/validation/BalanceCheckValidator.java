@@ -1,6 +1,5 @@
 package com.thee5176.ledger_command.Application.validation;
 
-import java.math.BigDecimal;
 import java.util.List;
 import com.thee5176.ledger_command.Application.dto.CreateLedgerItemsDTO;
 import jakarta.validation.ConstraintValidator;

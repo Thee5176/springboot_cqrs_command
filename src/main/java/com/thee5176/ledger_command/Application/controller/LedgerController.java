@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +42,7 @@ public class LedgerController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateLedger(@PathVariable UUID uuid, @RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> updateLedger(@RequestBody UUID uuid, @RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Validation errors: {}", bindingResult.getAllErrors());
             return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
@@ -60,7 +59,7 @@ public class LedgerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteLedger(@PathVariable UUID uuid) {
+    public ResponseEntity<String> deleteLedger(@RequestBody UUID uuid) {
         try {
             ledgerCommandService.deleteLedger(uuid);
             log.info("Ledger deleted: {}", uuid);
