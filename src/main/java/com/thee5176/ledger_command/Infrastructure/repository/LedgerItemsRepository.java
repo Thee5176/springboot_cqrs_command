@@ -1,6 +1,5 @@
 package com.thee5176.ledger_command.Infrastructure.repository;
 
-import java.util.List;
 import java.util.UUID;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
@@ -20,14 +19,14 @@ public class LedgerItemsRepository {
             .execute();
     }
 
-    public void updateLedgerItems(UUID uuid, LedgerItems ledgerItems) {
+    public void updateLedgerItems(LedgerItems ledgerItems) {
         dslContext.update(Tables.LEDGER_ITEMS)
             .set(Tables.LEDGER_ITEMS.LEDGER_ID, ledgerItems.getLedgerId())
             .set(Tables.LEDGER_ITEMS.AMOUNT, ledgerItems.getAmount())
             .set(Tables.LEDGER_ITEMS.COA, ledgerItems.getCoa())
             .set(Tables.LEDGER_ITEMS.TYPE, ledgerItems.getType())
             .set(Tables.LEDGER_ITEMS.UPDATED_AT, ledgerItems.getUpdatedAt())
-            .where(Tables.LEDGER_ITEMS.ID.eq(uuid))
+            .where(Tables.LEDGER_ITEMS.ID.eq(ledgerItems.getId()))
                 .execute();
     }
 
@@ -37,8 +36,9 @@ public class LedgerItemsRepository {
                 .execute();
     }
 
-    public List<LedgerItems> getLedgerItems() {
+    public LedgerItems getLedgerItems(UUID uuid) {
         return dslContext.selectFrom(Tables.LEDGER_ITEMS)
-                .fetchInto(LedgerItems.class);
+                .where(Tables.LEDGER_ITEMS.ID.eq(uuid))
+                .fetchOneInto(LedgerItems.class);
     }
 }

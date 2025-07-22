@@ -49,9 +49,13 @@ public class LedgerCommandService {
     }
 
     @Transactional
-    public void updateLedger(UUID uuid, CreateLedgerDTO createLedgerDTO) {
-        Ledgers ledgers = ledgerMapper.map(createLedgerDTO).setId(uuid);
-        ledgerRepository.updateLedger(uuid, ledgers);
+    public void updateLedger(CreateLedgerDTO createLedgerDTO) {
+        if (createLedgerDTO.getId() == null) {
+            throw new IllegalArgumentException("Ledger ID must not be null for update.");
+        }
+
+        Ledgers ledgers = ledgerMapper.map(createLedgerDTO);
+        ledgerRepository.updateLedger(ledgers);
         log.info("Ledger updated: {}", ledgers);
     }
 

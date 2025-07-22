@@ -42,14 +42,14 @@ public class LedgerController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateLedger(@RequestBody UUID uuid, @RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> updateLedger(@RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Validation errors: {}", bindingResult.getAllErrors());
             return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
         }
         
         try {
-            ledgerCommandService.updateLedger(uuid, createLedgerDTO);
+            ledgerCommandService.updateLedger(createLedgerDTO);
             log.info("Ledger updated: {}", createLedgerDTO);
         } catch (Exception e) {
             log.error("Error updating ledger: {}", e.getMessage());

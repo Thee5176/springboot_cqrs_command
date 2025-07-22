@@ -21,12 +21,12 @@ public class LedgerRepository {
     }
 
     //Update - https://www.jooq.orghttps://www.jooq.org/doc/latest/manual/sql-building/sql-statements/insert-statement/insert-values/#insert-values-with-a-single-row/doc/latest/manual/sql-building/sql-statements/insert-statement/insert-values/#insert-values-with-a-single-row
-    public void updateLedger(UUID uuid, Ledgers Ledgers) {
+    public void updateLedger(Ledgers Ledgers) {
         dslContext.update(Tables.LEDGERS)
             .set(Tables.LEDGERS.DATE, Ledgers.getDate())
             .set(Tables.LEDGERS.DESCRIPTION, Ledgers.getDescription())
             .set(Tables.LEDGERS.UPDATED_AT, Ledgers.getUpdatedAt())
-            .where(Tables.LEDGERS.ID.eq(uuid))
+            .where(Tables.LEDGERS.ID.eq(Ledgers.getId()))
                 .execute();
     }
     
