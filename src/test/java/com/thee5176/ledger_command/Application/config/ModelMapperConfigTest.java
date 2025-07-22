@@ -25,7 +25,7 @@ class ModelMapperConfigTest {
 
     @Test
     void testMappingCreateLedgerItemsDTOToLedgerItemsMapping() {
-        final CreateLedgerItemsDTO dto = CreateLedgerItemsDTOTest.createSampleCreateLedgerItemsDTO();
+        final CreateLedgerItemsDTO dto = CreateLedgerItemsDTOTest.createOneSampleCreateLedgerItemsDTO();
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
         LedgerItems ledgerItems = modelMapper.map(dto, LedgerItems.class);

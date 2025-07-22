@@ -30,8 +30,8 @@ public class LedgerItemsController {
     
 
     @PutMapping
-    public ResponseEntity<String> updateLedgerItems(@RequestBody UUID uuid, @RequestBody LedgerItems ledgerItems) {
-        ledgerItemsRepository.updateLedgerItems(uuid, ledgerItems);
+    public ResponseEntity<String> updateLedgerItems(@RequestBody LedgerItems ledgerItems) {
+        ledgerItemsRepository.updateLedgerItems(ledgerItems);
 
         return ResponseEntity.ok("updated ledgerItems succesfully");
     }

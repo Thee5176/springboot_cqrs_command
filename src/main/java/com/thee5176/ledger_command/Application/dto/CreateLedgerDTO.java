@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
+import io.swagger.oas.annotations.media.Schema;
 import org.springframework.lang.Nullable;
+import com.thee5176.ledger_command.Application.validation.BalanceCheck;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -26,6 +29,8 @@ public class CreateLedgerDTO {
     String description;
 
     @Size(min = 2, message = "The list must contain at least 2 items.")
+    @BalanceCheck
+    @Schema(implementation = CreateLedgerItemsDTO.class)
     List<CreateLedgerItemsDTO> ledgerItems;
     
     @PastOrPresent(message = "Timestamp must be in the past or present.")
