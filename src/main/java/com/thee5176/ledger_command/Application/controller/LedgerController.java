@@ -58,7 +58,7 @@ public class LedgerController {
         return ResponseEntity.ok("Successfully updated ledger");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("")
     public ResponseEntity<String> deleteLedger(@RequestBody UUID uuid) {
         try {
             ledgerCommandService.deleteLedger(uuid);
