@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import com.thee5176.ledger_command.Domain.model.enums.BalanceType;
 
-public class CreateLedgerItemsDTOTest {
+public class LedgerItemsEntryDTOTest {
 
     // Test data for a debit ledgerItems (e.g., for an asset or expense account)
     // Arrange
@@ -15,7 +15,7 @@ public class CreateLedgerItemsDTOTest {
     final BalanceType typeDebit = BalanceType.Debit;
 
     //Act
-    final CreateLedgerItemsDTO debitLedgerItems = new CreateLedgerItemsDTO(coaDebit, amountDebit, typeDebit);
+    final LedgerItemsEntryDTO debitLedgerItems = new LedgerItemsEntryDTO(coaDebit, amountDebit, typeDebit);
     
     
     // Test data for a credit ledgerItems (e.g., for a liability, equity, or revenue account)
@@ -25,7 +25,7 @@ public class CreateLedgerItemsDTOTest {
     final BalanceType typeCredit = BalanceType.Credit;
     
     //Act
-    final CreateLedgerItemsDTO creditLedgerItems = new CreateLedgerItemsDTO(coaCredit, amountCredit, typeCredit);
+    final LedgerItemsEntryDTO creditLedgerItems = new LedgerItemsEntryDTO(coaCredit, amountCredit, typeCredit);
 
     @Test
     void canCreateDebitLedgerItems() {
@@ -52,22 +52,22 @@ public class CreateLedgerItemsDTOTest {
         assertEquals(amountCredit  * -1, creditLedgerItems.getBalance());
     }
 
-    public static CreateLedgerItemsDTO createOneSampleCreateLedgerItemsDTO() {
-        return new CreateLedgerItemsDTO(1101, 100.0, BalanceType.Debit);
+    public static LedgerItemsEntryDTO createOneSampleLedgerItemsEntryDTO() {
+        return new LedgerItemsEntryDTO(1101, 100.0, BalanceType.Debit);
     }
 
-    public static List<CreateLedgerItemsDTO> createBalancedSampleCreateLedgerItemsDTO() {
+    public static List<LedgerItemsEntryDTO> createBalancedSampleLedgerItemsEntryDTO() {
         // This creates a balanced ledger with one debit and one credit
-        final CreateLedgerItemsDTO debitLedgerItems = new CreateLedgerItemsDTO(1101, 100.0, BalanceType.Debit);
-        final CreateLedgerItemsDTO creditLedgerItems = new CreateLedgerItemsDTO(4101, 100.0, BalanceType.Credit);
+        final LedgerItemsEntryDTO debitLedgerItems = new LedgerItemsEntryDTO(1101, 100.0, BalanceType.Debit);
+        final LedgerItemsEntryDTO creditLedgerItems = new LedgerItemsEntryDTO(4101, 100.0, BalanceType.Credit);
 
         return List.of(debitLedgerItems, creditLedgerItems);
     }
 
-    public static List<CreateLedgerItemsDTO> createImalancedSampleCreateLedgerItemsDTO() {
+    public static List<LedgerItemsEntryDTO> createImalancedSampleLedgerItemsEntryDTO() {
         // This creates an imbalanced ledger with one debit and one credit
-        final CreateLedgerItemsDTO debitLedgerItems = new CreateLedgerItemsDTO(1101, 0.0, BalanceType.Debit);
-        final CreateLedgerItemsDTO creditLedgerItems = new CreateLedgerItemsDTO(4101, 100.0, BalanceType.Credit);
+        final LedgerItemsEntryDTO debitLedgerItems = new LedgerItemsEntryDTO(1101, 0.0, BalanceType.Debit);
+        final LedgerItemsEntryDTO creditLedgerItems = new LedgerItemsEntryDTO(4101, 100.0, BalanceType.Credit);
         
         return List.of(debitLedgerItems, creditLedgerItems);
     }

@@ -9,8 +9,8 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTOTest;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
 import com.thee5176.ledger_command.Application.mapper.LedgerItemsMapper;
 import com.thee5176.ledger_command.Application.mapper.LedgerMapper;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
@@ -42,7 +42,7 @@ class LedgerCommandServiceTest {
 
     @Test
     void testCreateRecord_CreatesLedgerAndLedgerItems() {
-        CreateLedgerDTO dto = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
+        LedgersEntryDTO dto = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
         Ledgers ledger = LedgersTest.createSampleLedgers();
 
         // mock mapping function

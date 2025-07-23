@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
 import com.thee5176.ledger_command.Domain.service.LedgerCommandService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,15 +25,15 @@ public class LedgerController {
     private final LedgerCommandService ledgerCommandService;
 
     @PostMapping
-    public ResponseEntity<String> newLedger(@RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> newLedger(@RequestBody @Validated LedgersEntryDTO ledgersEntryDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Validation errors: {}", bindingResult.getAllErrors());
             return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
         }
         
         try {
-            ledgerCommandService.createLedger(createLedgerDTO);
-            log.info("New ledger created: {}", createLedgerDTO);
+            ledgerCommandService.createLedger(ledgersEntryDTO);
+            log.info("New ledger created: {}", ledgersEntryDTO);
         } catch (Exception e) {
             log.error("Error creating ledger: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Failed to create ledger: " + e.getMessage());
@@ -42,15 +42,15 @@ public class LedgerController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateLedger(@RequestBody @Validated CreateLedgerDTO createLedgerDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> updateLedger(@RequestBody @Validated LedgersEntryDTO ledgersEntryDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Validation errors: {}", bindingResult.getAllErrors());
             return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
         }
         
         try {
-            ledgerCommandService.updateLedger(createLedgerDTO);
-            log.info("Ledger updated: {}", createLedgerDTO);
+            ledgerCommandService.updateLedger(ledgersEntryDTO);
+            log.info("Ledger updated: {}", ledgersEntryDTO);
         } catch (Exception e) {
             log.error("Error updating ledger: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Failed to update ledger: " + e.getMessage());

@@ -6,18 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTOTest;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
 
 public class LedgerMapperTest {
 
     @Test
-    public void testMap_ShouldMapCreateLedgerDTOToLedgers() {
+    public void testMap_ShouldMapLedgersEntryDTOToLedgers() {
         ModelMapper modelMapper = new ModelMapper();
         LedgerMapper ledgerMapper = new LedgerMapper(modelMapper);
 
-        CreateLedgerDTO dto = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
+        LedgersEntryDTO dto = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
 
         Ledgers ledger = ledgerMapper.map(dto);
 
@@ -33,7 +33,7 @@ public class LedgerMapperTest {
         ModelMapper modelMapper = new ModelMapper();
         LedgerMapper ledgerMapper = new LedgerMapper(modelMapper);
 
-        CreateLedgerDTO dto = new CreateLedgerDTO();
+        LedgersEntryDTO dto = new LedgersEntryDTO();
 
         Ledgers ledger = ledgerMapper.map(dto);
 

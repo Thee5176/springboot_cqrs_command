@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
-public class CreateLedgerDTOTest {
+public class LedgersEntryDTOTest {
     // Test data for Dr/Cr balaced Ledgers
     // Arrange
     final UUID id = UUID.randomUUID();
     final LocalDate date = LocalDate.of(2024, 6, 1);
     final String description = "Test description";
-    final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createBalancedSampleCreateLedgerItemsDTO();
+    final List<LedgerItemsEntryDTO> ledgerItems = LedgerItemsEntryDTOTest.createBalancedSampleLedgerItemsEntryDTO();
     final LocalDateTime timestamp = LocalDateTime.now();
 
-    //Assertions for CreateLedgerDTO
+    //Assertions for LedgersEntryDTO
     @Test
-    void testCreateLedgerDTO_AllFields() {
-        CreateLedgerDTO dto = new CreateLedgerDTO(id, date, description, ledgerItems, timestamp);
+    void testLedgersEntryDTO_AllFields() {
+        LedgersEntryDTO dto = new LedgersEntryDTO(id, date, description, ledgerItems, timestamp);
 
         assertEquals(id, dto.getId());
         assertEquals(date, dto.getDate());
@@ -30,8 +30,8 @@ public class CreateLedgerDTOTest {
     }
 
     @Test
-    void testCreateLedgerDTO_NullFields() {
-        CreateLedgerDTO dto = new CreateLedgerDTO(null, null, null, null, null);
+    void testLedgersEntryDTO_NullFields() {
+        LedgersEntryDTO dto = new LedgersEntryDTO(null, null, null, null, null);
 
         assertNull(dto.getId());
         assertNull(dto.getDate());
@@ -40,14 +40,14 @@ public class CreateLedgerDTOTest {
         assertNull(dto.getTimestamp());
     }
 
-    public static CreateLedgerDTO createSampleCreateLedgerDTO() {
+    public static LedgersEntryDTO createSampleLedgersEntryDTO() {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
         final String description = "Test description";
-        final List<CreateLedgerItemsDTO> ledgerItems = CreateLedgerItemsDTOTest.createBalancedSampleCreateLedgerItemsDTO();
+        final List<LedgerItemsEntryDTO> ledgerItems = LedgerItemsEntryDTOTest.createBalancedSampleLedgerItemsEntryDTO();
         final LocalDateTime timestamp = LocalDateTime.now();
 
-        final CreateLedgerDTO createLedgerDTO = new CreateLedgerDTO(id, date, description, ledgerItems, timestamp);
-        return createLedgerDTO;
+        final LedgersEntryDTO ledgersEntryDTO = new LedgersEntryDTO(id, date, description, ledgerItems, timestamp);
+        return ledgersEntryDTO;
     }
 }

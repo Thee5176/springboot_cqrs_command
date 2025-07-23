@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateLedgerItemsDTO{
+public class LedgerItemsEntryDTO{
     @Schema(example = "5101", allowableValues = {"1101","5101"})
     Integer coa;
     @Schema(example = "550.50")

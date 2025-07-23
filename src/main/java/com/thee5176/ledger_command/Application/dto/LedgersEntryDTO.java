@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateLedgerDTO {
+public class LedgersEntryDTO {
     @Nullable
     UUID id;
 
@@ -30,8 +30,8 @@ public class CreateLedgerDTO {
 
     @Size(min = 2, message = "The list must contain at least 2 items.")
     @BalanceCheck
-    @Schema(implementation = CreateLedgerItemsDTO.class)
-    List<CreateLedgerItemsDTO> ledgerItems;
+    @Schema(implementation = LedgerItemsEntryDTO.class)
+    List<LedgerItemsEntryDTO> ledgerItems;
     
     @PastOrPresent(message = "Timestamp must be in the past or present.")
     LocalDateTime timestamp;

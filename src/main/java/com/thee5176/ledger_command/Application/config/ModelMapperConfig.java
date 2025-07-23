@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerItemsDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
 
@@ -18,11 +18,11 @@ public class ModelMapperConfig {
             .setMatchingStrategy(MatchingStrategies.LOOSE)
             .setFieldMatchingEnabled(true);       
         
-        // CreateLedgerItemsDTO map to LedgerItems
-        modelMapper.createTypeMap(CreateLedgerItemsDTO.class, LedgerItems.class)
-            .addMapping(CreateLedgerItemsDTO::getCoa, LedgerItems::setCoa)
-            .addMapping(CreateLedgerItemsDTO::getAmount, LedgerItems::setAmount)
-            .addMapping(CreateLedgerItemsDTO::getType, LedgerItems::setType)
+        // LedgerItemsEntryDTO map to LedgerItems
+        modelMapper.createTypeMap(LedgerItemsEntryDTO.class, LedgerItems.class)
+            .addMapping(LedgerItemsEntryDTO::getCoa, LedgerItems::setCoa)
+            .addMapping(LedgerItemsEntryDTO::getAmount, LedgerItems::setAmount)
+            .addMapping(LedgerItemsEntryDTO::getType, LedgerItems::setType)
             .addMappings(mapper -> mapper.skip(LedgerItems::setId))
             .addMappings(mapper -> mapper.skip(LedgerItems::setLedgerId))
             .addMappings(mapper -> mapper.skip(LedgerItems::setCreatedAt))
@@ -30,10 +30,10 @@ public class ModelMapperConfig {
             // Note1: The ID and LedgerId are set in the service layer.
             // Note2: The CreatedAt and UpdatedAt are set in the custom mapper layer,
 
-        // CreateLedgerDTO map to Ledgers
-        modelMapper.createTypeMap(CreateLedgerDTO.class, Ledgers.class)
-            .addMapping(CreateLedgerDTO::getDate, Ledgers::setDate)
-            .addMapping(CreateLedgerDTO::getDescription, Ledgers::setDescription)
+        // LedgersEntryDTO map to Ledgers
+        modelMapper.createTypeMap(LedgersEntryDTO.class, Ledgers.class)
+            .addMapping(LedgersEntryDTO::getDate, Ledgers::setDate)
+            .addMapping(LedgersEntryDTO::getDescription, Ledgers::setDescription)
             .addMappings(mapper -> mapper.skip(Ledgers::setCreatedAt))
             .addMappings(mapper -> mapper.skip(Ledgers::setUpdatedAt))
             .addMappings(mapper -> mapper.skip(Ledgers::setId));

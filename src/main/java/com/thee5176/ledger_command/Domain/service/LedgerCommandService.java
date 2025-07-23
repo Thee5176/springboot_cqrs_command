@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
 import com.thee5176.ledger_command.Application.mapper.LedgerItemsMapper;
 import com.thee5176.ledger_command.Application.mapper.LedgerMapper;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
@@ -32,17 +32,17 @@ public class LedgerCommandService {
     private final LedgerItemsMapper LedgerItemsMapper;
 
     @Transactional
-    public void createLedger(CreateLedgerDTO createLedgerDTO) throws RuntimeException {
+    public void createLedger(LedgersEntryDTO ledgersEntryDTO) throws RuntimeException {
         final UUID ledger_uuid = UUID.randomUUID();
 
         // 取引作成stream
-        Ledgers ledger = ledgerMapper.map(createLedgerDTO).setId(ledger_uuid);
+        Ledgers ledger = ledgerMapper.map(ledgersEntryDTO).setId(ledger_uuid);
         
         ledgerRepository.createLedger(ledger);
         log.info("Ledger created: {}", ledger);
         
         // 取引行別作成stream
-        List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(createLedgerDTO);
+        List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(ledgersEntryDTO);
 
         ledgerItemsList.forEach(ledgerItem -> {
             ledgerItem.setId(UUID.randomUUID());
@@ -53,13 +53,13 @@ public class LedgerCommandService {
     }
 
     @Transactional
-    public void updateLedger(CreateLedgerDTO createLedgerDTO) {  //LedgerRegistrationDTO LedgerEntryDTO
-        if (createLedgerDTO.getId() == null) {
+    public void updateLedger(LedgersEntryDTO ledgersEntryDTO) {  //LedgerRegistrationDTO LedgerEntryDTO
+        if (ledgersEntryDTO.getId() == null) {
             throw new IllegalArgumentException("Ledger ID must not be null for update.");
         }
 
-        List<LedgerItems> existingLedgerItemsList = ledgerItemRepository.getLedgerItemsByLedgerId(createLedgerDTO.getId());
-        List<LedgerItems> ledgerItemsUpdateList = LedgerItemsMapper.map(createLedgerDTO);
+        List<LedgerItems> existingLedgerItemsList = ledgerItemRepository.getLedgerItemsByLedgerId(ledgersEntryDTO.getId());
+        List<LedgerItems> ledgerItemsUpdateList = LedgerItemsMapper.map(ledgersEntryDTO);
         
         // Check Already Exist By COA : UpdateList -> COA
         Map<Integer, LedgerItems> existingItemsByCoa = existingLedgerItemsList.stream()
@@ -82,7 +82,7 @@ public class LedgerCommandService {
         ledgerItemsUpdateList.stream().forEach(ledgerItems -> {
             if (ledgerItems.getId() == null) {
                 ledgerItems.setId(UUID.randomUUID());
-                ledgerItems.setLedgerId(createLedgerDTO.getId());
+                ledgerItems.setLedgerId(ledgersEntryDTO.getId());
                 log.info("New ledger item created: {}", ledgerItems);
                 ledgerItemRepository.createLedgerItems(ledgerItems);
             }

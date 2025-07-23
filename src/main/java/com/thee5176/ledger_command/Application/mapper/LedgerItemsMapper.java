@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 
 @Service
@@ -15,13 +15,13 @@ public class LedgerItemsMapper {
         this.modelMapper = modelMapper;
     }
 
-    public List<LedgerItems> map(CreateLedgerDTO createLedgerDTO) {
+    public List<LedgerItems> map(LedgersEntryDTO ledgersEntryDTO) {
         
-        return createLedgerDTO.getLedgerItems().stream()
+        return ledgersEntryDTO.getLedgerItems().stream()
             .map(ledgerItemsDto -> this.modelMapper.map(ledgerItemsDto, LedgerItems.class))
             .map(ledgerItems -> {
-                ledgerItems.setCreatedAt(createLedgerDTO.getTimestamp());
-                ledgerItems.setUpdatedAt(createLedgerDTO.getTimestamp());
+                ledgerItems.setCreatedAt(ledgersEntryDTO.getTimestamp());
+                ledgerItems.setUpdatedAt(ledgersEntryDTO.getTimestamp());
                 return ledgerItems;
             })
             .collect(Collectors.toList());
