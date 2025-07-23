@@ -1,7 +1,12 @@
 package com.thee5176.ledger_command.Domain.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
@@ -52,50 +57,46 @@ public class LedgerCommandService {
         if (createLedgerDTO.getId() == null) {
             throw new IllegalArgumentException("Ledger ID must not be null for update.");
         }
+
         List<LedgerItems> existingLedgerItemsList = ledgerItemRepository.getLedgerItemsByLedgerId(createLedgerDTO.getId());
         List<LedgerItems> ledgerItemsUpdateList = LedgerItemsMapper.map(createLedgerDTO);
         
-        // Stream1# : Matched Accounting Code -> Assign ID to LedgerItems -> Update LedgerItems
-        // Stream1# : 一致する勘定科目コード -> IDをLedgerItems割り当て -> LedgerItemsを更新
-        ledgerItemsUpdateList.forEach(updateItem ->
-            existingLedgerItemsList.stream()
-            .filter(existingItem -> existingItem.getCoa().equals(updateItem.getCoa()))
-            .findFirst()
-            .ifPresent(existingItem -> {
-                updateItem.setId(existingItem.getId());
-                updateItem.setLedgerId(existingItem.getLedgerId());
-                log.info("Ledger item updated: {}", updateItem);
-                ledgerItemRepository.updateLedgerItems(updateItem);
-            }
-            )
-        );
+        // Check Already Exist By COA : UpdateList -> COA
+        Map<Integer, LedgerItems> existingItemsByCoa = existingLedgerItemsList.stream()
+            .collect(Collectors.toMap(LedgerItems::getCoa, Function.identity()));
 
-        // Stream2# : Create new LedgerItems that not found in Stream#1
+        // Stream1# : Assign ID to LedgerItems -> Update LedgerItems
+        // Stream1# : 一致する勘定科目コード -> IDをLedgerItems割り当て -> LedgerItemsを更新
+        ledgerItemsUpdateList.stream()
+            .filter(existingItem -> existingItemsByCoa.containsKey(existingItem.getCoa()))
+            .forEach(itemToUpdate -> {
+                LedgerItems existingItem = existingItemsByCoa.get(itemToUpdate.getCoa());
+                itemToUpdate.setId(existingItem.getId());
+                itemToUpdate.setLedgerId(existingItem.getLedgerId());
+                log.info("Ledger item updated : {}", itemToUpdate);
+                ledgerItemRepository.updateLedgerItems(itemToUpdate);
+            });
+
+        // Stream2# : Create new LedgerItems that no in Stream#1 (Id is still null)
         // Stream2# : Stream#1で見つからなかったLedgerItemsを作成
         ledgerItemsUpdateList.stream().forEach(ledgerItems -> {
             if (ledgerItems.getId() == null) {
-            ledgerItems.setId(UUID.randomUUID());
-            ledgerItems.setLedgerId(createLedgerDTO.getId());
-            log.info("New ledger item created: {}", ledgerItems);
-            ledgerItemRepository.createLedgerItems(ledgerItems);
+                ledgerItems.setId(UUID.randomUUID());
+                ledgerItems.setLedgerId(createLedgerDTO.getId());
+                log.info("New ledger item created: {}", ledgerItems);
+                ledgerItemRepository.createLedgerItems(ledgerItems);
             }
         });
 
         // Stream3# : Delete ledger items that are not in the updated list
         // Stream3# : 更新リストに存在しないLedgerItemsを削除
         existingLedgerItemsList.stream()
-            .filter(existingItem -> ledgerItemsUpdateList.stream()
-            .noneMatch(updatedItem -> updatedItem.getId() != null && updatedItem.getId().equals(existingItem.getId()))
-            )
+            .filter(existingItem -> !ledgerItemsUpdateList.contains(existingItem))
             .forEach(itemToDelete -> {
-            ledgerItemRepository.deleteLedgerItems(itemToDelete.getId());
-            log.info("Ledger item deleted: {}", itemToDelete);
+                ledgerItemRepository.deleteLedgerItems(itemToDelete.getId());
+                log.info("Ledger item deleted: {}", itemToDelete);
             }
         );
-
-        Ledgers ledgers = ledgerMapper.map(createLedgerDTO);
-        ledgerRepository.updateLedger(ledgers);
-        log.info("Ledger updated: {}", ledgers);
     }
 
     @Transactional
