@@ -2,7 +2,6 @@ package com.thee5176.ledger_command.Domain.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -50,6 +49,8 @@ public class LedgerCommandService {
             log.info("ledgerItem created: {}", ledgerItem);
             ledgerItemRepository.createLedgerItems(ledgerItem);
         });
+
+        // Check Repository
     }
 
     @Transactional
