@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
@@ -28,7 +27,7 @@ public class LedgerCommandService {
 
     private final LedgerMapper ledgerMapper;
 
-    private final LedgerItemsMapper LedgerItemsMapper;
+    private final LedgerItemsMapper ledgerItemsMapper;
 
     @Transactional
     public void createLedger(LedgersEntryDTO ledgersEntryDTO) throws RuntimeException {
@@ -41,7 +40,7 @@ public class LedgerCommandService {
         log.info("Ledger created: {}", ledger);
         
         // 取引行別作成stream
-        List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(ledgersEntryDTO);
+        List<LedgerItems> ledgerItemsList = ledgerItemsMapper.map(ledgersEntryDTO);
 
         ledgerItemsList.forEach(ledgerItem -> {
             ledgerItem.setId(UUID.randomUUID());
@@ -60,7 +59,7 @@ public class LedgerCommandService {
         }
 
         List<LedgerItems> existingLedgerItemsList = ledgerItemRepository.getLedgerItemsByLedgerId(ledgersEntryDTO.getId());
-        List<LedgerItems> ledgerItemsUpdateList = LedgerItemsMapper.map(ledgersEntryDTO);
+        List<LedgerItems> ledgerItemsUpdateList = ledgerItemsMapper.map(ledgersEntryDTO);
         
         // Check Already Exist By COA : UpdateList -> COA
         Map<Integer, LedgerItems> existingItemsByCoa = existingLedgerItemsList.stream()
