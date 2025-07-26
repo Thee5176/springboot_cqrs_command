@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
 import com.thee5176.ledger_command.Domain.service.LedgerCommandService;
@@ -61,7 +62,7 @@ public class LedgerController {
     }
 
     @DeleteMapping("")
-    public ResponseEntity<String> deleteLedger(@RequestBody UUID uuid) {
+    public ResponseEntity<String> deleteLedger(@RequestParam UUID uuid) {
         try {
             ledgerCommandService.deleteLedger(uuid);
             log.info("Ledger deleted: {}", uuid);

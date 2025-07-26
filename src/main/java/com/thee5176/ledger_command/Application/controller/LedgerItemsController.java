@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.ledger_command.Infrastructure.repository.LedgerItemsRepository;
@@ -37,7 +38,7 @@ public class LedgerItemsController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteLedgerItems(@RequestBody UUID uuid) {
+    public ResponseEntity<String> deleteLedgerItems(@RequestParam UUID uuid) {
         ledgerItemsRepository.deleteLedgerItems(uuid);
 
         return ResponseEntity.ok("deleted ledgerItems succesfully");
