@@ -8,11 +8,11 @@
 		<version>3.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.thee5176.record</groupId>
-	<artifactId>springboot_cqrs_command</artifactId>
+	<groupId>com.thee5176.ledger_command</groupId>
+	<artifactId>ledger_command</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot_cqrs_command</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ledger_command</name>
+	<description>CQRS command service for Double Accounting System</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -28,7 +28,28 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<flyway.version>11.7.2</flyway.version>
+		<sonar.organization>thee5176</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<!-- jOOQ Codegen DB properties -->
+		<db.url>${env.SPRING_DATASOURCE_URL}</db.url>
+		<db.user>${env.SPRING_DATASOURCE_USERNAME}</db.user>
+		<db.password>${env.SPRING_DATASOURCE_PASSWORD}</db.password>
 	</properties>
+	<profiles>
+		<!-- Fallback profile if env variables are not defined -->
+		<profile>
+			<id>default-db</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<db.url>jdbc:postgresql://localhost:5999/record</db.url>
+				<db.user>springboot_admin</db.user>
+				<db.password>password</db.password>
+			</properties>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,6 +66,12 @@
 			<scope>runtime</scope>
 			<version>2.8.8</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>2.0.0-rc2</version>
+		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
@@ -52,6 +79,17 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+		<dependency>
+				<groupId>org.modelmapper</groupId>
+				<artifactId>modelmapper</artifactId>
+				<version>3.2.0</version>
+			</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<dependency>
@@ -85,6 +123,23 @@
 
 	<build>
 		<plugins>
+			<!-- <plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>ledger_command</repository>
+					<tag>${project.version}</tag>
+				</configuration>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -101,6 +156,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<classifier>exec</classifier>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
@@ -110,50 +166,69 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway.version}</version>
+				<configuration>
+					<url>${db.url}</url>
+					<user>${db.user}</user>
+					<password>${db.password}</password>
+					<locations>
+						<location>filesystem:src/main/resources/db/migration</location>
+					</locations>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
 				<executions>
 					<execution>
-						<id>generate-jooq</id>
+						<id>jooq-codegen</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<configuration>
-							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://localhost:5999/record</url>
-								<user>springboot_admin</user>
-								<password>password</password>
-							</jdbc>
-							<generator>
-								<database>
-									<name>org.jooq.meta.postgres.PostgresDatabase</name>
-									<includes>.*</includes>
-									<excludes></excludes>
-									<inputSchema>public</inputSchema>
-								</database>
-								<generate>
-									<pojos>true</pojos>
-									<pojosEqualsAndHashCode>
-										true
-									</pojosEqualsAndHashCode>
-									<javaTimeTypes>true</javaTimeTypes>
-									<fluentSetters>true</fluentSetters>
-								</generate>
-								<target>
-									<packageName>
-										com.thee5176.record.springboot_cqrs_command.model
-									</packageName>
-									<directory>
-										src/main/java
-									</directory>
-								</target>
-							</generator>
-						</configuration>
 					</execution>
 				</executions>
-            </plugin>
+				<configuration>
+					<jdbc>
+						<driver>org.postgresql.Driver</driver>
+						<url>${db.url}</url>
+						<user>${db.user}</user>
+						<password>${db.password}</password>
+					</jdbc>
+					<generator>
+						<database>
+							<name>org.jooq.meta.postgres.PostgresDatabase</name>
+							<includes>.*</includes>
+							<recordVersionFields>false</recordVersionFields>
+							<recordTimestampFields>false</recordTimestampFields>
+							<includeRoutines>false</includeRoutines>
+							<includeUDTs>false</includeUDTs>
+							<includeSequences>false</includeSequences>
+							<includePackages>false</includePackages>
+							<excludes></excludes>
+							<inputSchema>public</inputSchema>
+						</database>
+						<generate>
+							<pojos>true</pojos>
+							<pojosEqualsAndHashCode>
+								true
+							</pojosEqualsAndHashCode>
+							<javaTimeTypes>true</javaTimeTypes>
+							<fluentSetters>true</fluentSetters>
+						</generate>
+						<target>
+							<packageName>
+								com.thee5176.ledger_command.Domain.model
+							</packageName>
+							<directory>
+								src/main/java
+							</directory>
+						</target>
+					</generator>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
