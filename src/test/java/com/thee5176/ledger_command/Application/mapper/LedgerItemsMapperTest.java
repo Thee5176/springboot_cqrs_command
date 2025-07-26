@@ -8,9 +8,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTOTest;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerItemsDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
+import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 
 class LedgerItemsMapperTest {
@@ -26,14 +26,14 @@ class LedgerItemsMapperTest {
 
     @Test
     void testMapWithMultipleLedgerItems() {
-        CreateLedgerDTO recordDTO = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
+        LedgersEntryDTO recordDTO = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
 
         List<LedgerItems> ledgerItemsList = LedgerItemsMapper.map(recordDTO);
 
         assertEquals(2, ledgerItemsList.size());
 
-        CreateLedgerItemsDTO dto1 = recordDTO.getLedgerItems().get(0);
-        CreateLedgerItemsDTO dto2 = recordDTO.getLedgerItems().get(1);
+        LedgerItemsEntryDTO dto1 = recordDTO.getLedgerItems().get(0);
+        LedgerItemsEntryDTO dto2 = recordDTO.getLedgerItems().get(1);
         LedgerItems ledgerItems1 = ledgerItemsList.get(0);
         LedgerItems ledgerItems2 = ledgerItemsList.get(1);
 
@@ -54,7 +54,7 @@ class LedgerItemsMapperTest {
 
     @Test
     void testMapWithEmptyLedgerItemsList() {
-        CreateLedgerDTO recordDTO = new CreateLedgerDTO();
+        LedgersEntryDTO recordDTO = new LedgersEntryDTO();
         recordDTO.setLedgerItems(Arrays.asList());
         recordDTO.setTimestamp(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
 

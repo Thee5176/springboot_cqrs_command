@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTO;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerDTOTest;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerItemsDTO;
-import com.thee5176.ledger_command.Application.dto.CreateLedgerItemsDTOTest;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
+import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTOTest;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
 
@@ -24,8 +24,8 @@ class ModelMapperConfigTest {
     }
 
     @Test
-    void testMappingCreateLedgerItemsDTOToLedgerItemsMapping() {
-        final CreateLedgerItemsDTO dto = CreateLedgerItemsDTOTest.createOneSampleCreateLedgerItemsDTO();
+    void testMappingLedgerItemsEntryDTOToLedgerItemsMapping() {
+        final LedgerItemsEntryDTO dto = LedgerItemsEntryDTOTest.createOneSampleLedgerItemsEntryDTO();
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
         LedgerItems ledgerItems = modelMapper.map(dto, LedgerItems.class);
@@ -40,8 +40,8 @@ class ModelMapperConfigTest {
     }
 
     @Test
-    void testMappingCreateLedgerDTOToLedgersWithoutID() {
-        CreateLedgerDTO dto = CreateLedgerDTOTest.createSampleCreateLedgerDTO();
+    void testMappingLedgersEntryDTOToLedgersWithoutID() {
+        LedgersEntryDTO dto = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
         dto.setId(null);
         final ModelMapper modelMapper = modelMapperConfig.modelMapper();
 
