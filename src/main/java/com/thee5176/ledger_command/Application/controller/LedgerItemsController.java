@@ -29,7 +29,6 @@ public class LedgerItemsController {
         return ResponseEntity.ok("created ledgerItems succesfully");
     }
     
-
     @PutMapping
     public ResponseEntity<String> updateLedgerItems(@RequestBody LedgerItems ledgerItems) {
         ledgerItemsRepository.updateLedgerItems(ledgerItems);

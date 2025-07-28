@@ -21,7 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+    "http://localhost:5173",  // local deployment
+    "http://localhost:8183"   // docker deployment
+})
 @RequestMapping("/ledger")
 @AllArgsConstructor
 public class LedgerController {
@@ -61,7 +64,7 @@ public class LedgerController {
         return ResponseEntity.ok("Successfully updated ledger");
     }
 
-    @DeleteMapping("")
+    @DeleteMapping
     public ResponseEntity<String> deleteLedger(@RequestParam UUID uuid) {
         try {
             ledgerCommandService.deleteLedger(uuid);
