@@ -17,11 +17,12 @@ public class LedgersEntryDTOTest {
     final List<LedgerItemsEntryDTO> ledgerItems = LedgerItemsEntryDTOTest.createBalancedSampleLedgerItemsEntryDTO();
     final LocalDateTime timestamp = LocalDateTime.now();
 
-    //Assertions for LedgersEntryDTO
     @Test
     void testLedgersEntryDTO_AllFields() {
+        // Act
         LedgersEntryDTO dto = new LedgersEntryDTO(id, date, description, ledgerItems, timestamp);
 
+        // Assertion
         assertEquals(id, dto.getId());
         assertEquals(date, dto.getDate());
         assertEquals(description, dto.getDescription());
@@ -40,6 +41,7 @@ public class LedgersEntryDTOTest {
         assertNull(dto.getTimestamp());
     }
 
+    // Reusable Test Data
     public static LedgersEntryDTO createSampleLedgersEntryDTO() {
         final UUID id = UUID.randomUUID();
         final LocalDate date = LocalDate.of(2024, 6, 1);
