@@ -12,10 +12,13 @@
 git clone 
 cd SpringBoot_CQRS_Command
 
-#2 
+#2 Run DB Container and make migration
+docker compose up test_command_postgres -d
+chmod +x mvnw
+./mvnw flyway:migrate
 
 #3  Build pakcage and run process with docker
-mvn clean package
+./mvnw clean package
 docker compose up -d --build
 
 ```
@@ -98,7 +101,7 @@ sequenceDiagram
 
 Integration Test(Mockito):
   ✔ Service - Create Transaction
-  ✘ Service - Updatet Transaction
+  ✘ Service - Update Transaction
 
 API Test Case:
   ✔ Validation
