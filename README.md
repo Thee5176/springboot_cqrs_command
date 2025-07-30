@@ -29,7 +29,9 @@ see [Main Repository](https://github.com/Thee5176/Accounting_CQRS_Project)
 
 ## Design Document
 
-<img width="464" height="542" alt="image" src="https://github.com/user-attachments/assets/df92b02e-a7ab-4775-81e7-de7703429c97" />
+![Latest Design](https://github.com/user-attachments/assets/1b3d1503-7582-4724-86ee-6806e1fff05a)
+
+
 
 # Highlight Functionality
 
