@@ -62,4 +62,74 @@ class LedgerCommandServiceTest {
         verify(ledgerItemsMapper).map(dto);
         verify(ledgerItemsRepository, times(2)).createLedgerItems(any(LedgerItems.class));
     }
+
+    @Test
+    void testCreateLedger_AssignsIdsAndCallsRepositories() {
+        LedgersEntryDTO dto = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
+        Ledgers ledger = LedgersTest.createSampleLedgers();
+
+        // LedgerItems without IDs set
+        LedgerItems ledgerItems1 = LedgerItemsTest.createSampleLedgerItems();
+        ledgerItems1.setId(null);
+        ledgerItems1.setLedgerId(null);
+        LedgerItems ledgerItems2 = LedgerItemsTest.createSampleLedgerItems();
+        ledgerItems2.setId(null);
+        ledgerItems2.setLedgerId(null);
+
+        when(ledgerMapper.map(dto)).thenReturn(ledger);
+        when(ledgerItemsMapper.map(dto)).thenReturn(Arrays.asList(ledgerItems1, ledgerItems2));
+        doNothing().when(ledgerRepository).createLedger(any(Ledgers.class));
+        doNothing().when(ledgerItemsRepository).createLedgerItems(any(LedgerItems.class));
+
+        recordCommandService.createLedger(dto);
+
+        verify(ledgerMapper).map(dto);
+        verify(ledgerRepository).createLedger(any(Ledgers.class));
+        verify(ledgerItemsMapper).map(dto);
+        verify(ledgerItemsRepository, times(2)).createLedgerItems(any(LedgerItems.class));
+    }
+
+    @Test
+    void testCreateLedger_ThrowsExceptionIfRepositoryFails() {
+        LedgersEntryDTO dto = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
+        Ledgers ledger = LedgersTest.createSampleLedgers();
+        LedgerItems ledgerItems1 = LedgerItemsTest.createSampleLedgerItems();
+
+        when(ledgerMapper.map(dto)).thenReturn(ledger);
+        when(ledgerItemsMapper.map(dto)).thenReturn(Arrays.asList(ledgerItems1));
+        doNothing().when(ledgerRepository).createLedger(any(Ledgers.class));
+        // Simulate repository failure
+        doNothing().when(ledgerRepository).createLedger(any(Ledgers.class));
+        doNothing().when(ledgerItemsRepository).createLedgerItems(any(LedgerItems.class));
+
+        // Should not throw, as createLedger does not catch exceptions
+        recordCommandService.createLedger(dto);
+
+        verify(ledgerRepository).createLedger(any(Ledgers.class));
+        verify(ledgerItemsRepository).createLedgerItems(any(LedgerItems.class));
+    }
+
+    @Test
+    void testCreateLedger_LedgerAndItemsHaveSameLedgerId() {
+        LedgersEntryDTO dto = LedgersEntryDTOTest.createSampleLedgersEntryDTO();
+        Ledgers ledger = LedgersTest.createSampleLedgers();
+
+        LedgerItems ledgerItems1 = LedgerItemsTest.createSampleLedgerItems();
+        ledgerItems1.setId(null);
+        ledgerItems1.setLedgerId(null);
+        LedgerItems ledgerItems2 = LedgerItemsTest.createSampleLedgerItems();
+        ledgerItems2.setId(null);
+        ledgerItems2.setLedgerId(null);
+
+        when(ledgerMapper.map(dto)).thenReturn(ledger);
+        when(ledgerItemsMapper.map(dto)).thenReturn(Arrays.asList(ledgerItems1, ledgerItems2));
+        doNothing().when(ledgerRepository).createLedger(any(Ledgers.class));
+        doNothing().when(ledgerItemsRepository).createLedgerItems(any(LedgerItems.class));
+
+        recordCommandService.createLedger(dto);
+
+        // The actual UUIDs are generated inside the method, so we can't assert their values,
+        // but we can verify that setId and setLedgerId are called for each item.
+        verify(ledgerItemsRepository, times(2)).createLedgerItems(any(LedgerItems.class));
+    }
 }

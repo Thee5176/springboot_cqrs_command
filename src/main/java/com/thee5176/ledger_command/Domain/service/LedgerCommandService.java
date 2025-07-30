@@ -43,7 +43,6 @@ public class LedgerCommandService {
         List<LedgerItems> ledgerItemsList = ledgerItemsMapper.map(ledgersEntryDTO);
 
         ledgerItemsList.stream()
-            .filter(ledgerItem -> ledgerItem != null)
             .forEach(ledgerItem -> {
                 ledgerItem.setId(UUID.randomUUID());
                 ledgerItem.setLedgerId(ledger_uuid);
