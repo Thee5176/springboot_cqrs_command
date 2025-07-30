@@ -9,7 +9,7 @@
 ## Run Process with Docker
 ```bash
 #1 Prepare directory and clone from github
-git clone 
+git clone https://github.com/Thee5176/SpringBoot_CQRS_Command.git
 cd SpringBoot_CQRS_Command
 
 #2 Run DB Container and make migration
