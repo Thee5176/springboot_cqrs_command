@@ -10,7 +10,6 @@ import com.thee5176.ledger_command.Application.validation.BalanceCheck;
 import io.swagger.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,6 @@ public class LedgersEntryDTO {
     @NotBlank
     String description;
 
-    @Size(min = 2, message = "The list must contain at least 2 items.")
     @BalanceCheck
     @Schema(implementation = LedgerItemsEntryDTO.class)
     List<LedgerItemsEntryDTO> ledgerItems;

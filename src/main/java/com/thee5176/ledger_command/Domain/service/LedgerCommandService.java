@@ -42,14 +42,14 @@ public class LedgerCommandService {
         // 取引行別作成stream
         List<LedgerItems> ledgerItemsList = ledgerItemsMapper.map(ledgersEntryDTO);
 
-        ledgerItemsList.forEach(ledgerItem -> {
-            ledgerItem.setId(UUID.randomUUID());
-            ledgerItem.setLedgerId(ledger_uuid);
-            log.info("ledgerItem created: {}", ledgerItem);
-            ledgerItemRepository.createLedgerItems(ledgerItem);
-        });
-
-        // Check Repository
+        ledgerItemsList.stream()
+            .filter(ledgerItem -> ledgerItem != null)
+            .forEach(ledgerItem -> {
+                ledgerItem.setId(UUID.randomUUID());
+                ledgerItem.setLedgerId(ledger_uuid);
+                log.info("ledgerItem created: {}", ledgerItem);
+                ledgerItemRepository.createLedgerItems(ledgerItem);
+            });
     }
 
     @Transactional

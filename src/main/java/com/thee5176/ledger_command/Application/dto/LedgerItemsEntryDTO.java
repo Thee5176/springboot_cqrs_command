@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LedgerItemsEntryDTO{
-    @Schema(example = "5101", allowableValues = {"1101","5101"})
+
     Integer coa;
-    @Schema(example = "550.50")
     Double amount;
-    @Schema(example = "Debit", allowableValues = {"Debit", "Credit"})
     BalanceType type;
 
     @Schema(hidden = true)
