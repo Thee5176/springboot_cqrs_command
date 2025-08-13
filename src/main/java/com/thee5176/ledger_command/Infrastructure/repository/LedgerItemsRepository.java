@@ -23,8 +23,8 @@ public class LedgerItemsRepository {
                 .values(ledgerItems.getId(), ledgerItems.getLedgerId(), ledgerItems.getCoa(), ledgerItems.getAmount(), ledgerItems.getType(), ledgerItems.getCreatedAt(), ledgerItems.getUpdatedAt())
                 .execute();
         } catch (Exception e) {
-            log.error("Error creating ledger: {}", e.getMessage());       //gyaku
-            throw new JooqOperationException("Failed to create LedgerItems", e);
+            log.error("Error creating ledger: {}", e.getMessage());
+            throw new JooqOperationException("Failed to create LedgerItems");
         }
     }
 
@@ -40,7 +40,7 @@ public class LedgerItemsRepository {
                 .execute();
         } catch (Exception e) {
             log.error("Error updating ledger: {}", e.getMessage());
-            throw new JooqOperationException("Failed to update LedgerItems", e);
+            throw new JooqOperationException("Failed to update LedgerItems");
         }
     }
 
@@ -51,7 +51,7 @@ public class LedgerItemsRepository {
                 .execute();
         } catch (Exception e) {
             log.error("Error deleting ledger: {}", e.getMessage());
-            throw new JooqOperationException("Failed to delete LedgerItems", e);
+            throw new JooqOperationException("Failed to delete LedgerItems");
         }
     }
 
