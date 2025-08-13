@@ -23,7 +23,7 @@ public class LedgerItemsRepository {
                 .values(ledgerItems.getId(), ledgerItems.getLedgerId(), ledgerItems.getCoa(), ledgerItems.getAmount(), ledgerItems.getType(), ledgerItems.getCreatedAt(), ledgerItems.getUpdatedAt())
                 .execute();
         } catch (Exception e) {
-            log.error("Error creating ledger: {}", e.getMessage());       //gyaku
+            log.error("Error creating ledger", e);       //gyaku
             throw new JooqOperationException("Failed to create LedgerItems", e);
         }
     }
