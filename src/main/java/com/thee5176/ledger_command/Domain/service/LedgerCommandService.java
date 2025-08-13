@@ -30,14 +30,14 @@ public class LedgerCommandService {
     private final LedgerItemsMapper ledgerItemsMapper;
 
     @Transactional
-    public void createLedger(LedgersEntryDTO ledgersEntryDTO) throws RuntimeException {
+    public void createLedger(LedgersEntryDTO ledgersEntryDTO) {
         final UUID ledger_uuid = UUID.randomUUID();
 
         // 取引作成stream
         Ledgers ledger = ledgerMapper.map(ledgersEntryDTO).setId(ledger_uuid);
         
         ledgerRepository.createLedger(ledger);
-        log.info("Ledger created: {}", ledger);
+        log.debug("Ledger created: {}", ledger);
         
         // 取引行別作成stream
         List<LedgerItems> ledgerItemsList = ledgerItemsMapper.map(ledgersEntryDTO);
@@ -46,17 +46,13 @@ public class LedgerCommandService {
             .forEach(ledgerItem -> {
                 ledgerItem.setId(UUID.randomUUID());
                 ledgerItem.setLedgerId(ledger_uuid);
-                log.info("ledgerItem created: {}", ledgerItem);
+                log.debug("ledgerItem created: {}", ledgerItem);
                 ledgerItemRepository.createLedgerItems(ledgerItem);
             });
     }
 
     @Transactional
     public void updateLedger(LedgersEntryDTO ledgersEntryDTO) {  //LedgerRegistrationDTO LedgerEntryDTO
-        if (ledgersEntryDTO.getId() == null) {
-            throw new IllegalArgumentException("Ledger ID must not be null for update.");
-        }
-
         List<LedgerItems> existingLedgerItemsList = ledgerItemRepository.getLedgerItemsByLedgerId(ledgersEntryDTO.getId());
         List<LedgerItems> ledgerItemsUpdateList = ledgerItemsMapper.map(ledgersEntryDTO);
         
@@ -72,7 +68,7 @@ public class LedgerCommandService {
                 LedgerItems existingItem = existingItemsByCoa.get(itemToUpdate.getCoa());
                 itemToUpdate.setId(existingItem.getId());
                 itemToUpdate.setLedgerId(existingItem.getLedgerId());
-                log.info("Ledger item updated : {}", itemToUpdate);
+                log.debug("Ledger item updated : {}", itemToUpdate);
                 ledgerItemRepository.updateLedgerItems(itemToUpdate);
             });
 
@@ -82,7 +78,7 @@ public class LedgerCommandService {
             if (ledgerItems.getId() == null) {
                 ledgerItems.setId(UUID.randomUUID());
                 ledgerItems.setLedgerId(ledgersEntryDTO.getId());
-                log.info("New ledger item created: {}", ledgerItems);
+                log.debug("New ledger item created: {}", ledgerItems);
                 ledgerItemRepository.createLedgerItems(ledgerItems);
             }
         });
@@ -93,7 +89,7 @@ public class LedgerCommandService {
             .filter(existingItem -> !ledgerItemsUpdateList.contains(existingItem))
             .forEach(itemToDelete -> {
                 ledgerItemRepository.deleteLedgerItems(itemToDelete.getId());
-                log.info("Ledger item deleted: {}", itemToDelete);
+                log.debug("Ledger item deleted: {}", itemToDelete);
             }
         );
     }

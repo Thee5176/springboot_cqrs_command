@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.exception.ValidationException;
 import com.thee5176.ledger_command.Domain.service.LedgerCommandService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,16 +35,12 @@ public class LedgerController {
     public ResponseEntity<String> newLedger(@RequestBody @Validated LedgersEntryDTO ledgersEntryDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Validation errors: {}", bindingResult.getAllErrors());
-            return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
+            throw new ValidationException("Validation failed: " + bindingResult.getAllErrors());
         }
-        
-        try {
-            ledgerCommandService.createLedger(ledgersEntryDTO);
-            log.info("New ledger created: {}", ledgersEntryDTO);
-        } catch (Exception e) {
-            log.error("Error creating ledger: {}", e.getMessage());
-            return ResponseEntity.badRequest().body("Failed to create ledger: " + e.getMessage());
-        }
+
+        ledgerCommandService.createLedger(ledgersEntryDTO);
+        log.debug("New ledger created: {}", ledgersEntryDTO);
+
         return ResponseEntity.ok("Successfully created new ledger");
     }
 
@@ -51,28 +48,20 @@ public class LedgerController {
     public ResponseEntity<String> updateLedger(@RequestBody @Validated LedgersEntryDTO ledgersEntryDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Validation errors: {}", bindingResult.getAllErrors());
-            return ResponseEntity.badRequest().body("Validation failed: " + bindingResult.getAllErrors());
+            throw new ValidationException("Validation failed: " + bindingResult.getAllErrors());
         }
         
-        try {
-            ledgerCommandService.updateLedger(ledgersEntryDTO);
-            log.info("Ledger updated: {}", ledgersEntryDTO);
-        } catch (Exception e) {
-            log.error("Error updating ledger: {}", e.getMessage());
-            return ResponseEntity.badRequest().body("Failed to update ledger: " + e.getMessage());
-        }
+        ledgerCommandService.updateLedger(ledgersEntryDTO);
+        log.debug("Ledger updated: {}", ledgersEntryDTO);
+
         return ResponseEntity.ok("Successfully updated ledger");
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteLedger(@RequestParam UUID uuid) {
-        try {
-            ledgerCommandService.deleteLedger(uuid);
-            log.info("Ledger deleted: {}", uuid);
-        } catch (Exception e) {
-            log.error("Error deleting ledger: {}", e.getMessage());
-            return ResponseEntity.badRequest().body("Failed to delete ledger: " + e.getMessage());
-        }
+        ledgerCommandService.deleteLedger(uuid);
+        log.debug("Ledger deleted: {}", uuid);
+
         return ResponseEntity.ok("Successfully deleted ledger");
     }
 }   
