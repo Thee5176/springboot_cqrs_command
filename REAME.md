@@ -2,7 +2,7 @@
 ```bash
 docker compose down -v
 docker compose up test_command_postgres -d
-mvn flyway:migrate
-mvn clean package
+./mvnw flyway:migrate
+./mvnw clean package
 docker compose up -d --build
 ```
