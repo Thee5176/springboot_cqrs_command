@@ -1,4 +1,5 @@
 services:
+
   test_command_service:
     build: .
     container_name: test_command_service
@@ -8,13 +9,3 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "8186:8081"
-
-  test_command_postgres:
-    image: "postgres:latest"
-    container_name: test_command_postgres
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5999:5432"
