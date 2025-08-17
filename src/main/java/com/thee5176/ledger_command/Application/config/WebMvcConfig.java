@@ -1,4 +1,4 @@
-package com.thee5176.ledger_query.Application.config;
+package com.thee5176.ledger_command.Application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
