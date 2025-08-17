@@ -14,6 +14,11 @@ jobs:
   build:
     name: Build and Run with Docker Compose
     runs-on: ubuntu-latest
+    env:
+      DB_USERNAME: ${{ vars.DB_USERNAME }}
+      DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+      DB_NAME: ${{ vars.DB_NAME }}
+      DB_URL: ${{ vars.DB_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -30,11 +35,6 @@ jobs:
 
       - name: Start database service
         run: docker compose up test_command_postgres -d
-        env:
-          DB_USERNAME: ${{ env.DB_USERNAME }}
-          DB_PASSWORD: ${{ env.DB_PASSWORD }}
-          DB_NAME: ${{ env.DB_NAME }}
-          DB_URL: ${{ env.DB_URL }}
           
       - name: Wait for database to be ready
         run: |
