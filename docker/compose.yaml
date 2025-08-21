@@ -1,7 +1,6 @@
 services:
 
   test_command_service:
-    build: .
     container_name: test_command_service
     environment:
       DB_URL: ${DB_URL}

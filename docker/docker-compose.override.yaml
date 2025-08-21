@@ -1,0 +1,7 @@
+services:
+  test_command_service:
+    build: ../.
+    container_name: test_command_service
+    image: springboot_cqrs_command:latest
+    env_file:
+      - ../.env

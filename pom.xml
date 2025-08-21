@@ -85,12 +85,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
@@ -146,19 +140,19 @@
 						<location>filesystem:src/main/resources/db/migration</location>
 					</locations>
 				</configuration>
+				<executions>
+					<execution>
+						<id>migrate</id>
+						<phase>none</phase>  <!--Disable auto-run-->
+						<goals>
+							<goal>migrate</goal> <!--command :: mvn flyway:migrate-->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>
-				<executions>
-					<execution>
-						<id>jooq-codegen</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<jdbc>
 						<driver>org.postgresql.Driver</driver>
@@ -181,22 +175,25 @@
 						</database>
 						<generate>
 							<pojos>true</pojos>
-							<pojosEqualsAndHashCode>
-								true
-							</pojosEqualsAndHashCode>
+							<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
 							<javaTimeTypes>true</javaTimeTypes>
 							<fluentSetters>true</fluentSetters>
 						</generate>
 						<target>
-							<packageName>
-								com.thee5176.ledger_command.Domain.model
-							</packageName>
-							<directory>
-								src/main/java
-							</directory>
+							<packageName>com.thee5176.ledger_command.Domain.model</packageName>
+							<directory>src/main/java</directory>
 						</target>
 					</generator>
 				</configuration>
+				<executions>
+					<execution>
+						<id>jooq-codegen</id>
+						<phase>none</phase> <!--Disable auto-run-->
+						<goals>
+							<goal>generate-sources</goal> <!--command :: mvn generate-sources-->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
