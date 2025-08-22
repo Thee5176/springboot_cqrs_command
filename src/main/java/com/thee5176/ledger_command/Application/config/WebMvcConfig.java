@@ -1,5 +1,6 @@
 package com.thee5176.ledger_command.Application.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -7,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig {
+    @Value("${VITE_HOST_IP}")
+    private String HostIp;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -14,7 +17,7 @@ public class WebMvcConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                    .allowedOrigins("http://localhost:5173")
+                    .allowedOrigins("http://localhost:5173", "http://localhost:8183", "http://" + HostIp + ":8183")
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
                     .allowedHeaders("*");
             }
