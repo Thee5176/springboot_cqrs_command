@@ -13,10 +13,10 @@ public class LedgerItemsEntryDTO{
 
     Integer coa;
     Double amount;
-    BalanceType type;
+    BalanceType balanceType;
 
     @Schema(hidden = true)
     public Double getBalance() {
-        return BalanceType.Debit.equals(type) ? amount : amount * -1;
+        return BalanceType.Debit.equals(balanceType) ? amount : amount * -1;
     }
 }

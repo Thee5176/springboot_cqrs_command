@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
 import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
 
@@ -22,7 +22,7 @@ public class ModelMapperConfig {
         modelMapper.createTypeMap(LedgerItemsEntryDTO.class, LedgerItems.class)
             .addMapping(LedgerItemsEntryDTO::getCoa, LedgerItems::setCoa)
             .addMapping(LedgerItemsEntryDTO::getAmount, LedgerItems::setAmount)
-            .addMapping(LedgerItemsEntryDTO::getType, LedgerItems::setType)
+            .addMapping(LedgerItemsEntryDTO::getBalanceType, LedgerItems::setType)
             .addMappings(mapper -> mapper.skip(LedgerItems::setId))
             .addMappings(mapper -> mapper.skip(LedgerItems::setLedgerId))
             .addMappings(mapper -> mapper.skip(LedgerItems::setCreatedAt))

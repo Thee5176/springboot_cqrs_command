@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
-import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
 import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
 import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTOTest;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
 import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
 
@@ -32,7 +32,7 @@ class ModelMapperConfigTest {
 
         assertEquals(dto.getCoa(), ledgerItems.getCoa());
         assertEquals(dto.getAmount(), ledgerItems.getAmount());
-        assertEquals(dto.getType(), ledgerItems.getType());
+        assertEquals(dto.getBalanceType(), ledgerItems.getType());
         assertEquals(null, ledgerItems.getId()); 
         assertEquals(null, ledgerItems.getLedgerId()); 
         assertEquals(null, ledgerItems.getCreatedAt()); 

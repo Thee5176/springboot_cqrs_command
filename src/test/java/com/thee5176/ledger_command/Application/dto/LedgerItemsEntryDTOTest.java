@@ -33,7 +33,7 @@ public class LedgerItemsEntryDTOTest {
         assertNotNull(debitLedgerItems);
         assertEquals(coaDebit, debitLedgerItems.getCoa());
         assertEquals(amountDebit, debitLedgerItems.getAmount());
-        assertEquals(typeDebit, debitLedgerItems.getType());
+        assertEquals(typeDebit, debitLedgerItems.getBalanceType());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class LedgerItemsEntryDTOTest {
         assertNotNull(creditLedgerItems);
         assertEquals(coaCredit, creditLedgerItems.getCoa());
         assertEquals(amountCredit, creditLedgerItems.getAmount());
-        assertEquals(typeCredit, creditLedgerItems.getType());
+        assertEquals(typeCredit, creditLedgerItems.getBalanceType());
     }
 
     @Test

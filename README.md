@@ -22,7 +22,7 @@ chmod +x mvnw
 docker compose up -d --build
 
 ```
-Check the running project at [port 8185](http://localhost:8186)
+Check the running project at [port 8186](http://localhost:8186)
 
 ## Development Process
 see [Main Repository](https://github.com/Thee5176/Accounting_CQRS_Project)
