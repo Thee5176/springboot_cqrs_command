@@ -1,7 +1,6 @@
 INSERT INTO "code_of_account" ("code", "title", "level", "element", "type") VALUES
 
 -- 純資産 (Equity)
--- 
 (3111, '利益剰余金', 0, 'Equity', 'Credit'),
 (3112, '当期純利益', 0, 'Equity', 'Credit'),
 (3113, '当期純損失', 0, 'Equity', 'Debit'),
