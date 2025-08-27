@@ -33,9 +33,9 @@
 		<sonar.organization>thee5176</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<!-- jOOQ Codegen and Flyway properties -->
-		<db.url>${env.DB_URL}</db.url>
-		<db.user>${env.DB_USERNAME}</db.user>
-		<db.password>${env.DB_PASSWORD}</db.password>
+		<db.url>${DB_URL}</db.url>
+		<db.user>${DB_USERNAME}</db.user>
+		<db.password>${DB_PASSWORD}</db.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -163,6 +163,25 @@
 			<id>codegen</id>                    <!--command :: ./mvnw -Pcodegen generate-sources-->
 			<build>
 				<plugins>
+					<!-- Load project properties from env.properties (if present) -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>properties-maven-plugin</artifactId>
+						<version>1.0.0</version>
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<goals>
+									<goal>read-project-properties</goal>
+								</goals>
+								<configuration>
+									<files>
+										<file>env.properties</file>
+									</files>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 					<plugin>
 						<groupId>org.jooq</groupId>
 						<artifactId>jooq-codegen-maven</artifactId>
