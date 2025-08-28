@@ -32,10 +32,6 @@
 		<jooq.version>3.20.6</jooq.version>
 		<sonar.organization>thee5176</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<!-- jOOQ Codegen and Flyway properties -->
-		<db.url>${DB_URL}</db.url>
-		<db.user>${DB_USERNAME}</db.user>
-		<db.password>${DB_PASSWORD}</db.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -108,6 +104,25 @@
 
 	<build>
 		<plugins>
+			<!-- TODO: Fix Load project properties from env.properties (if present) -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>env.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -133,55 +148,43 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>${flyway.version}</version>
-				<configuration>
-					<url>${db.url}</url>
-					<user>${db.user}</user>
-					<password>${db.password}</password>
-					<locations>
-						<location>filesystem:src/main/resources/db/migration</location>
-					</locations>
-				</configuration>
-				<executions>
-					<execution>
-						<id>migrate</id>
-						<phase>none</phase>      <!--Disable auto migration -->
-						<goals>
-							<goal>migrate</goal> <!--command :: ./mvnw flyway:migrate-->
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
 	<profiles>
-		<profile>								<!--Disable auto codegen -->
-			<id>codegen</id>                    <!--command :: ./mvnw -Pcodegen generate-sources-->
+		<profile>
+			<id>flyway</id>                    <!--command :: ./mvnw -Pflyway flyway:migrate-->
 			<build>
 				<plugins>
-					<!-- Load project properties from env.properties (if present) -->
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>properties-maven-plugin</artifactId>
-						<version>1.0.0</version>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<version>${flyway.version}</version>
+						<configuration>
+							<url>${DB_URL}</url>
+							<user>${DB_USERNAME}</user>
+							<password>${DB_PASSWORD}</password>
+							<locations>
+								<location>filesystem:src/main/resources/db/migration</location>
+							</locations>
+						</configuration>
 						<executions>
 							<execution>
-								<phase>initialize</phase>
+								<id>migrate</id>
+								<phase>none</phase>      <!--Disable auto migration -->
 								<goals>
-									<goal>read-project-properties</goal>
+									<goal>migrate</goal> <!--command :: ./mvnw flyway:migrate-->
 								</goals>
-								<configuration>
-									<files>
-										<file>env.properties</file>
-									</files>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jooq</id>                    <!--command :: ./mvnw -Pjooq generate-sources-->
+			<build>
+				<plugins>
 					<plugin>
 						<groupId>org.jooq</groupId>
 						<artifactId>jooq-codegen-maven</artifactId>
@@ -189,9 +192,9 @@
 						<configuration>
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
-								<url>${db.url}</url>
-								<user>${db.user}</user>
-								<password>${db.password}</password>
+								<url>${DB_URL}</url>
+								<user>${DB_USERNAME}</user>
+								<password>${DB_PASSWORD}</password>
 							</jdbc>
 							<generator>
 								<database>
