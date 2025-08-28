@@ -32,10 +32,6 @@
 		<jooq.version>3.20.6</jooq.version>
 		<sonar.organization>thee5176</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<!-- jOOQ Codegen and Flyway properties -->
-		<db.url>${env.DB_URL}</db.url>
-		<db.user>${env.DB_USERNAME}</db.user>
-		<db.password>${env.DB_PASSWORD}</db.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -133,74 +129,92 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>${flyway.version}</version>
-				<configuration>
-					<url>${db.url}</url>
-					<user>${db.user}</user>
-					<password>${db.password}</password>
-					<locations>
-						<location>filesystem:src/main/resources/db/migration</location>
-					</locations>
-				</configuration>
-				<executions>
-					<execution>
-						<id>migrate</id>
-						<phase>none</phase>  <!--Disable auto-run-->
-						<goals>
-							<goal>migrate</goal> <!--command :: mvn flyway:migrate-->
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq-codegen-maven</artifactId>
-				<version>${jooq.version}</version>
-				<configuration>
-					<jdbc>
-						<driver>org.postgresql.Driver</driver>
-						<url>${db.url}</url>
-						<user>${db.user}</user>
-						<password>${db.password}</password>
-					</jdbc>
-					<generator>
-						<database>
-							<name>org.jooq.meta.postgres.PostgresDatabase</name>
-							<includes>.*</includes>
-							<recordVersionFields>false</recordVersionFields>
-							<recordTimestampFields>false</recordTimestampFields>
-							<includeRoutines>false</includeRoutines>
-							<includeUDTs>false</includeUDTs>
-							<includeSequences>false</includeSequences>
-							<includePackages>false</includePackages>
-							<excludes></excludes>
-							<inputSchema>public</inputSchema>
-						</database>
-						<generate>
-							<pojos>true</pojos>
-							<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
-							<javaTimeTypes>true</javaTimeTypes>
-							<fluentSetters>true</fluentSetters>
-						</generate>
-						<target>
-							<packageName>com.thee5176.ledger_command.Domain.model</packageName>
-							<directory>src/main/java</directory>
-						</target>
-					</generator>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>flyway</id>                    <!--command :: ./mvnw -Pflyway flyway:migrate-->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<version>${flyway.version}</version>
+						<configuration>
+							<url>${DB_URL}</url>
+							<user>${DB_USERNAME}</user>
+							<password>${DB_PASSWORD}</password>
+							<locations>
+								<location>filesystem:src/main/resources/db/migration</location>
+							</locations>
+						</configuration>
+						<executions>
+							<execution>
+								<id>migrate</id>
+								<phase>none</phase>      <!--Disable auto migration -->
+								<goals>
+									<goal>migrate</goal> <!--command :: ./mvnw flyway:migrate-->
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jooq</id>                    <!--command :: ./mvnw -Pjooq generate-sources-->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jooq</groupId>
+						<artifactId>jooq-codegen-maven</artifactId>
+						<version>${jooq.version}</version>
+						<configuration>
+							<jdbc>
+								<driver>org.postgresql.Driver</driver>
+								<url>${DB_URL}</url>
+								<user>${DB_USERNAME}</user>
+								<password>${DB_PASSWORD}</password>
+							</jdbc>
+							<generator>
+								<database>
+									<name>org.jooq.meta.postgres.PostgresDatabase</name>
+									<includes>.*</includes>
+									<recordVersionFields>false</recordVersionFields>
+									<recordTimestampFields>false</recordTimestampFields>
+									<includeRoutines>false</includeRoutines>
+									<includeUDTs>false</includeUDTs>
+									<includeSequences>false</includeSequences>
+									<includePackages>false</includePackages>
+									<excludes></excludes>
+									<inputSchema>public</inputSchema>
+								</database>
+								<generate>
+									<pojos>true</pojos>
+									<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+									<javaTimeTypes>true</javaTimeTypes>
+									<fluentSetters>true</fluentSetters>
+								</generate>
+								<target>
+									<packageName>com.thee5176.ledger_command.Domain.model</packageName>
+									<directory>src/main/java</directory>
+								</target>
+							</generator>
+						</configuration>
+						<executions>
+							<execution>
+								<id>generate</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
