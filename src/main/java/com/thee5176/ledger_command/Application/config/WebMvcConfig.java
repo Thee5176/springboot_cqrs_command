@@ -18,7 +18,6 @@ public class WebMvcConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                     .allowedOrigins("*")
-                    .maxAge(3600)
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
                     .allowedHeaders("*");
             }
