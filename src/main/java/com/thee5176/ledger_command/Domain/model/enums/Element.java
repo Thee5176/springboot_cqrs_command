@@ -4,10 +4,11 @@
 package com.thee5176.ledger_command.Domain.model.enums;
 
 
+import com.thee5176.ledger_command.Domain.model.Public;
+
 import org.jooq.Catalog;
 import org.jooq.EnumType;
 import org.jooq.Schema;
-import com.thee5176.ledger_command.Domain.model.Public;
 
 
 /**
