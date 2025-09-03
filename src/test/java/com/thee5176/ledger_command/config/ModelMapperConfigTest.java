@@ -1,4 +1,4 @@
-package com.thee5176.ledger_command.Application.config;
+package com.thee5176.ledger_command.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;

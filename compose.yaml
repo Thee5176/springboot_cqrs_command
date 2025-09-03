@@ -3,11 +3,7 @@ services:
   test_command_service:
     build: .
     container_name: test_command_service
-    develop:
-      watch:
-        - path: ./target/*-exec.jar
-          action: rebuild
     env_file:
       - ./env.properties
     ports:
-      - "8186:8081"
+      - "8186:8080"
