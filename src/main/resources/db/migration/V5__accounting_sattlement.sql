@@ -1,4 +1,4 @@
-INSERT INTO "code_of_account" ("code", "title", "level", "element", "type") VALUES
+INSERT INTO accounting.code_of_account ("code", "title", "level", "element", "type") VALUES
 
 -- 純資産 (Equity)
 (3111, '利益剰余金', 0, 'Equity', 'Credit'),

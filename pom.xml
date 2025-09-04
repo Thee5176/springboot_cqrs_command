@@ -31,6 +31,7 @@
 		<flyway.version>11.7.2</flyway.version>
 		<jooq.version>3.20.6</jooq.version>
 		<spring-security.version>6.5.3</spring-security.version>
+		<jjwt.version>0.11.5</jjwt.version>
 		<sonar.organization>thee5176</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
@@ -97,6 +98,21 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${jjwt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -191,7 +207,14 @@
 									<includeSequences>false</includeSequences>
 									<includePackages>false</includePackages>
 									<excludes></excludes>
-									<inputSchema>public</inputSchema>
+									<schemata>
+										<schema>
+											<inputSchema>accounting</inputSchema>
+										</schema>
+										<schema>
+											<inputSchema>credential</inputSchema>
+										</schema>
+									</schemata>
 								</database>
 								<generate>
 									<pojos>true</pojos>
@@ -199,8 +222,23 @@
 									<javaTimeTypes>true</javaTimeTypes>
 									<fluentSetters>true</fluentSetters>
 								</generate>
+								<strategy>
+									<name>org.jooq.codegen.DefaultGeneratorStrategy</name>
+									<matchers>
+										<tables>
+											<table>
+												<expression>USER</expression>
+												<pojoImplements>org.springframework.security.core.userdetails.UserDetails</pojoImplements>
+											</table>
+											<table>
+												<expression>AUTHORITIES</expression>
+												<pojoImplements>org.springframework.security.core.GrantedAuthority</pojoImplements>
+											</table>
+										</tables>
+									</matchers>
+								</strategy>
 								<target>
-									<packageName>com.thee5176.ledger_command.Domain.model</packageName>
+									<packageName>com.thee5176.ledger_command.domain.model</packageName>
 									<directory>src/main/java</directory>
 								</target>
 							</generator>

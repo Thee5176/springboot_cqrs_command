@@ -4,10 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
-import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
-import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
-import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
+import com.thee5176.ledger_command.application.dto.LedgerItemsEntryDTO;
+import com.thee5176.ledger_command.application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.domain.model.accounting.tables.pojos.LedgerItems;
+import com.thee5176.ledger_command.domain.model.accounting.tables.pojos.Ledgers;
 
 @Configuration
 public class ModelMapperConfig {
@@ -36,7 +36,8 @@ public class ModelMapperConfig {
             .addMapping(LedgersEntryDTO::getDescription, Ledgers::setDescription)
             .addMappings(mapper -> mapper.skip(Ledgers::setCreatedAt))
             .addMappings(mapper -> mapper.skip(Ledgers::setUpdatedAt))
-            .addMappings(mapper -> mapper.skip(Ledgers::setId));
+            .addMappings(mapper -> mapper.skip(Ledgers::setId))
+            .addMappings(mapper -> mapper.skip(Ledgers::setOwnerId));
             // Note1: The CreatedAt and UpdatedAt is set in the custom mapper layer.
             // Note2: The ID is set in the service layer.
             

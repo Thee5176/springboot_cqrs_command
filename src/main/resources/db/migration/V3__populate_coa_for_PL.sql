@@ -1,4 +1,4 @@
-INSERT INTO "code_of_account" ("code", "title", "level", "element", "type") VALUES
+INSERT INTO accounting.code_of_account ("code", "title", "level", "element", "type") VALUES
 -- 収益 (Revenue)
     (4101, '売上', 1, 'Revenue', 'Credit'),
     (4201, '雑収入', 1, 'Revenue', 'Credit'),

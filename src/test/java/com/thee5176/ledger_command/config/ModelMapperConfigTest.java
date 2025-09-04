@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTO;
-import com.thee5176.ledger_command.Application.dto.LedgerItemsEntryDTOTest;
-import com.thee5176.ledger_command.Application.dto.LedgersEntryDTO;
-import com.thee5176.ledger_command.Application.dto.LedgersEntryDTOTest;
-import com.thee5176.ledger_command.Domain.model.tables.pojos.LedgerItems;
-import com.thee5176.ledger_command.Domain.model.tables.pojos.Ledgers;
+import com.thee5176.ledger_command.application.dto.LedgerItemsEntryDTO;
+import com.thee5176.ledger_command.application.dto.LedgerItemsEntryDTOTest;
+import com.thee5176.ledger_command.application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.application.dto.LedgersEntryDTOTest;
+import com.thee5176.ledger_command.domain.model.accounting.tables.pojos.LedgerItems;
+import com.thee5176.ledger_command.domain.model.accounting.tables.pojos.Ledgers;
 
 @SpringBootTest
 class ModelMapperConfigTest {
@@ -52,5 +52,6 @@ class ModelMapperConfigTest {
         assertEquals(null, ledgers.getId());
         assertEquals(null, ledgers.getCreatedAt());
         assertEquals(null, ledgers.getUpdatedAt());
+        assertEquals(null, ledgers.getOwnerId());
     }
 }
