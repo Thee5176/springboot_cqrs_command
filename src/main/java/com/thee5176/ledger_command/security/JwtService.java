@@ -16,10 +16,11 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-    @Value("${security.jwt.secret}")
+    @Value("${jwt.secret:}")
     private String secretKey;
 
-    @Value("${security.jwt.expiration}")
+    // Provide a sensible default (1 hour) so tests or environments without this property continue to work
+    @Value("${jwt.expiration:3600000}") 
     private long jwtExpiration;
 
     public String extractUsername(String token) {
@@ -87,6 +88,10 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
+        if (secretKey == null || secretKey.isBlank()) {
+            throw new IllegalStateException("JWT secret is not configured. Set 'jwt.secret' property or provide JWT_SECRET in env.properties.");
+        }
+
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }

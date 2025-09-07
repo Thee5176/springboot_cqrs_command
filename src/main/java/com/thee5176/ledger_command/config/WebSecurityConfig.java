@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.thee5176.ledger_command.auth.CustomUserDetailsService;
+import com.thee5176.ledger_command.security.CustomUserDetailsService;
 import com.thee5176.ledger_command.security.JwtAuthenticationFilter;
 import com.thee5176.ledger_command.security.JwtService;
 import lombok.RequiredArgsConstructor;

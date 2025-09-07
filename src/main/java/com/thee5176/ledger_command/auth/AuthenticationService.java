@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.thee5176.ledger_command.security.CustomUserDetailsService;
+import com.thee5176.ledger_command.security.JOOQUsersRepository;
 import com.thee5176.ledger_command.security.JwtService;
 import lombok.AllArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.thee5176.ledger_command.auth;
+package com.thee5176.ledger_command.security;
 
 import java.util.List;
 import org.springframework.security.core.userdetails.User;
