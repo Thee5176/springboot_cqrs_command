@@ -1,6 +1,5 @@
 package com.thee5176.ledger_command.config;
 
-import org.jooq.DSLContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,15 +8,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.thee5176.ledger_command.domain.model.credential.Tables;
+import com.thee5176.ledger_command.auth.CustomUserDetailsService;
 import com.thee5176.ledger_command.security.JwtAuthenticationFilter;
 import com.thee5176.ledger_command.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -26,39 +22,15 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-	private final DSLContext dslContext;
+	private final CustomUserDetailsService userDetailsService;
 
     @Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder(12);
 	}
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new UserDetailsService() {
-			// Load user details from the database using jOOQ
-			@Override
-			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-				final UserDetails user = 
-					dslContext.selectFrom(Tables.USER)
-					.where(Tables.USER.USERNAME.eq(username))
-					.fetchOneInto(UserDetails.class);
-
-				if (user == null) {
-					throw new UsernameNotFoundException("User not found with username: " + username);
-				}
-				
-				return User.builder()
-						.username(user.getUsername())
-						.password(user.getPassword())
-						.roles("USER")
-						.build();
-			}
-		};
-	}
-
 	@Bean DaoAuthenticationProvider daoAuthenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
 		authProvider.setPasswordEncoder(encoder());
 		return authProvider;
 	}

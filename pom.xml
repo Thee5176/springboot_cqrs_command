@@ -222,21 +222,6 @@
 									<javaTimeTypes>true</javaTimeTypes>
 									<fluentSetters>true</fluentSetters>
 								</generate>
-								<strategy>
-									<name>org.jooq.codegen.DefaultGeneratorStrategy</name>
-									<matchers>
-										<tables>
-											<table>
-												<expression>USER</expression>
-												<pojoImplements>org.springframework.security.core.userdetails.UserDetails</pojoImplements>
-											</table>
-											<table>
-												<expression>AUTHORITIES</expression>
-												<pojoImplements>org.springframework.security.core.GrantedAuthority</pojoImplements>
-											</table>
-										</tables>
-									</matchers>
-								</strategy>
 								<target>
 									<packageName>com.thee5176.ledger_command.domain.model</packageName>
 									<directory>src/main/java</directory>

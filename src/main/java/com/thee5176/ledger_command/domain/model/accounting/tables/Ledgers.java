@@ -8,7 +8,7 @@ import com.thee5176.ledger_command.domain.model.accounting.Accounting;
 import com.thee5176.ledger_command.domain.model.accounting.Keys;
 import com.thee5176.ledger_command.domain.model.accounting.tables.LedgerItems.LedgerItemsPath;
 import com.thee5176.ledger_command.domain.model.accounting.tables.records.LedgersRecord;
-import com.thee5176.ledger_command.domain.model.credential.tables.User.UserPath;
+import com.thee5176.ledger_command.domain.model.credential.tables.Users.UsersPath;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -167,16 +167,16 @@ public class Ledgers extends TableImpl<LedgersRecord> {
         return Arrays.asList(Keys.LEDGERS__LEDGER_ITEMS_USER_FKEY);
     }
 
-    private transient UserPath _user;
+    private transient UsersPath _users;
 
     /**
-     * Get the implicit join path to the <code>credential.user</code> table.
+     * Get the implicit join path to the <code>credential.users</code> table.
      */
-    public UserPath user() {
-        if (_user == null)
-            _user = new UserPath(this, Keys.LEDGERS__LEDGER_ITEMS_USER_FKEY, null);
+    public UsersPath users() {
+        if (_users == null)
+            _users = new UsersPath(this, Keys.LEDGERS__LEDGER_ITEMS_USER_FKEY, null);
 
-        return _user;
+        return _users;
     }
 
     private transient LedgerItemsPath _ledgerItems;

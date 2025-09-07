@@ -4,7 +4,8 @@
 package com.thee5176.ledger_command.domain.model.credential;
 
 
-import com.thee5176.ledger_command.domain.model.credential.tables.User;
+import com.thee5176.ledger_command.domain.model.credential.tables.Authorities;
+import com.thee5176.ledger_command.domain.model.credential.tables.Users;
 
 
 /**
@@ -14,7 +15,12 @@ import com.thee5176.ledger_command.domain.model.credential.tables.User;
 public class Tables {
 
     /**
-     * The table <code>credential.user</code>.
+     * The table <code>credential.authorities</code>.
      */
-    public static final User USER = User.USER;
+    public static final Authorities AUTHORITIES = Authorities.AUTHORITIES;
+
+    /**
+     * The table <code>credential.users</code>.
+     */
+    public static final Users USERS = Users.USERS;
 }

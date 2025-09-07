@@ -4,13 +4,17 @@
 package com.thee5176.ledger_command.domain.model.credential;
 
 
-import com.thee5176.ledger_command.domain.model.credential.tables.User;
-import com.thee5176.ledger_command.domain.model.credential.tables.records.UserRecord;
+import com.thee5176.ledger_command.domain.model.credential.tables.Authorities;
+import com.thee5176.ledger_command.domain.model.credential.tables.Users;
+import com.thee5176.ledger_command.domain.model.credential.tables.records.AuthoritiesRecord;
+import com.thee5176.ledger_command.domain.model.credential.tables.records.UsersRecord;
 
+import org.jooq.ForeignKey;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
+import org.jooq.impl.QOM.ForeignKeyRule;
 
 
 /**
@@ -24,5 +28,13 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, DSL.name("user_pkey"), new TableField[] { User.USER.ID }, true);
+    public static final UniqueKey<AuthoritiesRecord> AUTHORITIES_PKEY = Internal.createUniqueKey(Authorities.AUTHORITIES, DSL.name("authorities_pkey"), new TableField[] { Authorities.AUTHORITIES.ID }, true);
+    public static final UniqueKey<UsersRecord> USERS_PKEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_pkey"), new TableField[] { Users.USERS.ID }, true);
+    public static final UniqueKey<UsersRecord> USERS_USERNAME_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_username_key"), new TableField[] { Users.USERS.USERNAME }, true);
+
+    // -------------------------------------------------------------------------
+    // FOREIGN KEY definitions
+    // -------------------------------------------------------------------------
+
+    public static final ForeignKey<AuthoritiesRecord, UsersRecord> AUTHORITIES__FK_AUTHORITIES_USERS = Internal.createForeignKey(Authorities.AUTHORITIES, DSL.name("fk_authorities_users"), new TableField[] { Authorities.AUTHORITIES.USERNAME }, Keys.USERS_USERNAME_KEY, new TableField[] { Users.USERS.USERNAME }, true, ForeignKeyRule.NO_ACTION, ForeignKeyRule.NO_ACTION);
 }

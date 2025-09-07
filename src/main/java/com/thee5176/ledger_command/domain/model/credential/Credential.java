@@ -5,7 +5,8 @@ package com.thee5176.ledger_command.domain.model.credential;
 
 
 import com.thee5176.ledger_command.domain.model.DefaultCatalog;
-import com.thee5176.ledger_command.domain.model.credential.tables.User;
+import com.thee5176.ledger_command.domain.model.credential.tables.Authorities;
+import com.thee5176.ledger_command.domain.model.credential.tables.Users;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,9 +31,14 @@ public class Credential extends SchemaImpl {
     public static final Credential CREDENTIAL = new Credential();
 
     /**
-     * The table <code>credential.user</code>.
+     * The table <code>credential.authorities</code>.
      */
-    public final User USER = User.USER;
+    public final Authorities AUTHORITIES = Authorities.AUTHORITIES;
+
+    /**
+     * The table <code>credential.users</code>.
+     */
+    public final Users USERS = Users.USERS;
 
     /**
      * No further instances allowed
@@ -50,7 +56,8 @@ public class Credential extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            User.USER
+            Authorities.AUTHORITIES,
+            Users.USERS
         );
     }
 }

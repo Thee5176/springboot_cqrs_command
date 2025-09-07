@@ -3,6 +3,7 @@ package com.thee5176.ledger_command.auth;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.thee5176.ledger_command.security.JwtService;
@@ -12,7 +13,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
+    private final JOOQUsersRepository userRepository;
+    private final CustomUserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -24,11 +26,13 @@ public class AuthenticationService {
                 .roles("USER")
                 .build();
         userRepository.createUser(user);
-
+        // Access Token
         var jwtToken = jwtService.generateToken(user);
+        // Refresh Token
+
         return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+            .token(jwtToken)
+            .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -39,9 +43,9 @@ public class AuthenticationService {
             )
         );
 
-        var user = userRepository.fetchUserByUsername(request.getUsername());
-
+        UserDetails user = customUserDetailsService.loadUserByUsername(request.getUsername());
         var jwtToken = jwtService.generateToken(user);
+        
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
