@@ -7,11 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
-import com.thee5176.ledger_command.record.application.dto.LedgerItemsEntryDTO;
-import com.thee5176.ledger_command.record.application.dto.LedgersEntryDTO;
 
 public class LedgersEntryDTOTest {
-    // Test data for Dr/Cr balaced Ledgers
+    // Test data for Dr/Cr balanced Ledgers
     // Arrange
     final UUID id = UUID.randomUUID();
     final LocalDate date = LocalDate.of(2024, 6, 1);
