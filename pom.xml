@@ -223,7 +223,7 @@
 									<fluentSetters>true</fluentSetters>
 								</generate>
 								<target>
-									<packageName>com.thee5176.ledger_command.domain.model</packageName>
+									<packageName>com.thee5176.ledger_command.record.domain.model</packageName>
 									<directory>src/main/java</directory>
 								</target>
 							</generator>

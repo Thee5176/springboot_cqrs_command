@@ -3,8 +3,8 @@ package com.thee5176.ledger_command.security;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import com.thee5176.ledger_command.auth.RegisterRequest;
-import com.thee5176.ledger_command.domain.model.credential.Tables;
-import com.thee5176.ledger_command.domain.model.credential.tables.pojos.Users;
+import com.thee5176.ledger_command.record.domain.model.credential.Tables;
+import com.thee5176.ledger_command.record.domain.model.credential.tables.pojos.Users;
 import lombok.AllArgsConstructor;
 
 @Repository

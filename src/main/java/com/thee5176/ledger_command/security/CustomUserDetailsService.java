@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.thee5176.ledger_command.domain.model.credential.tables.pojos.Authorities;
-import com.thee5176.ledger_command.domain.model.credential.tables.pojos.Users;
+import com.thee5176.ledger_command.record.domain.model.credential.tables.pojos.Authorities;
+import com.thee5176.ledger_command.record.domain.model.credential.tables.pojos.Users;
 import lombok.RequiredArgsConstructor;
 
 @Service

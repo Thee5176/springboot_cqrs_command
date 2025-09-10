@@ -4,10 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.thee5176.ledger_command.application.dto.LedgerItemsEntryDTO;
-import com.thee5176.ledger_command.application.dto.LedgersEntryDTO;
-import com.thee5176.ledger_command.domain.model.accounting.tables.pojos.LedgerItems;
-import com.thee5176.ledger_command.domain.model.accounting.tables.pojos.Ledgers;
+import com.thee5176.ledger_command.record.application.dto.LedgerItemsEntryDTO;
+import com.thee5176.ledger_command.record.application.dto.LedgersEntryDTO;
+import com.thee5176.ledger_command.record.domain.model.accounting.tables.pojos.LedgerItems;
+import com.thee5176.ledger_command.record.domain.model.accounting.tables.pojos.Ledgers;
 
 @Configuration
 public class ModelMapperConfig {
