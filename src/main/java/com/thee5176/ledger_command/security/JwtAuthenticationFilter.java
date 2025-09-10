@@ -39,18 +39,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userName;
 
         // (Check 1) Header contains Valid JWT Token in the Authorization Header
-        if (authHeader == null || authHeader.isBlank()) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = authHeader.startsWith("Bearer ") ? authHeader.substring(7) : authHeader;
+        jwt = authHeader.substring(7);
 
         try {
             userName = jwtService.extractUsername(jwt);
         } catch (Exception e) {
             // Invalid token or parsing error — do not throw, continue as anonymous
-            LOGGER.debug("Failed to extract username from JWT: {}", e.getMessage());
+            LOGGER.debug("Failed to extract username from JWT", e.getMessage());
             filterChain.doFilter(request, response);
             return;
         }
@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             } catch (Exception e) {
-                LOGGER.debug("JWT authentication skipped: {}", e.getMessage());
+                LOGGER.debug("JWT authentication skipped", e.getMessage());
             }
         }
 
