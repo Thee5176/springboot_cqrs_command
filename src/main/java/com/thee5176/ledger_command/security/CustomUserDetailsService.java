@@ -13,12 +13,12 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    private final JOOQUsersRepository userRepository;
+    private final JOOQUsersRepository usersRepository;
     private final JOOQAuthoritiesRepository authoritiesRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.fetchUserByUsername(username);
+        Users user = usersRepository.fetchUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

@@ -58,10 +58,14 @@ public class JwtService {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
+                // Header: alg claim
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+
+                // Payload: sub, iat, exp claims
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                
                 .compact();
     }
 
@@ -92,7 +96,15 @@ public class JwtService {
             throw new IllegalStateException("JWT secret is not configured. Set 'jwt.secret' property or provide JWT_SECRET in env.properties.");
         }
 
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes;
+        try {
+            keyBytes = Decoders.BASE64.decode(secretKey);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalStateException("Invalid JWT secret: not valid Base64", e);
+        }
+        if (keyBytes.length < 32) {
+            throw new IllegalStateException("JWT secret key is too short. Minimum required length for HS256 is 256 bits (32 bytes).");
+        }
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

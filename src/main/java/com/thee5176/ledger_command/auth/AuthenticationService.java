@@ -1,5 +1,6 @@
 package com.thee5176.ledger_command.auth;
 
+import java.util.Random;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
@@ -15,22 +16,30 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
-    private final JOOQUsersRepository userRepository;
+    private final JOOQUsersRepository usersRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        // TODO: Add error handling and avoid duplicate users
+        // encode the password
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        
+        // TODO: Add error handling for duplicate information
+        if (request.getId() == null) {
+            Long userId = Long.valueOf(new Random().nextInt(9999 + 1)); // Generates id with number between 1 and 9999
+            request.setId(userId);
+        }
+        usersRepository.createUser(request);
+        
+        // Create UserDetails object
         var user = User.builder()
                 .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword())) // In a real application, ensure to hash the password
+                .password(request.getPassword())
                 .roles("USER")
                 .build();
-        userRepository.createUser(user);
         // Access Token
         var jwtToken = jwtService.generateToken(user);
-        // Refresh Token
 
         return AuthenticationResponse.builder()
             .token(jwtToken)
@@ -53,4 +62,7 @@ public class AuthenticationService {
                 .build();
     }
 
+    public static Long generateRandomId() {
+        return Long.valueOf(new Random().nextInt(9000)); // Generates a number between 1 and 9999
+    }
 }

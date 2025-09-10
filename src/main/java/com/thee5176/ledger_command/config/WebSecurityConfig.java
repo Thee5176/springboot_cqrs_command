@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.thee5176.ledger_command.security.CustomUserDetailsService;
+import com.thee5176.ledger_command.security.JOOQAuthoritiesRepository;
+import com.thee5176.ledger_command.security.JOOQUsersRepository;
 import com.thee5176.ledger_command.security.JwtAuthenticationFilter;
 import com.thee5176.ledger_command.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 	private final CustomUserDetailsService userDetailsService;
+	private final JOOQUsersRepository usersRepository;
+	private final JOOQAuthoritiesRepository authoritiesRepository;
 
     @Bean
 	public PasswordEncoder encoder() {
@@ -51,14 +55,19 @@ public class WebSecurityConfig {
 		http
 			.csrf((csrf -> csrf.disable()))
 			.authorizeHttpRequests(auth -> 
-				auth.requestMatchers("/api/v1/auth/**").permitAll()
+				auth.requestMatchers("/api/v1/auth/**", "/error").permitAll()
 				.anyRequest().authenticated()
 				)
 			.sessionManagement(session -> session
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions; use JWTs
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			)
 			.authenticationProvider(daoAuthenticationProvider())
 			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
+	}
+
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new CustomUserDetailsService(usersRepository, authoritiesRepository);
 	}
 }
